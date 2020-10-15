@@ -39,3 +39,4 @@ logback.out.xml
 node
 node_modules
 .nuxt
+store-app/data/STORE.*
