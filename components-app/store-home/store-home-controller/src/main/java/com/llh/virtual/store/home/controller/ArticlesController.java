@@ -7,28 +7,53 @@ package com.llh.virtual.store.home.controller;
 
 import com.llh.virtual.store.home.service.IarticlesService;
 import com.llh.virtual.store.home.service.dto.ArticlesDto;
+import java.io.File;
 import java.util.List;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  *
  * @author lorenzo
  */
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("api/articles")
 public class ArticlesController {
 
+    private Logger LOGGER = LoggerFactory.getLogger(this.getClass());
     @Autowired
     private IarticlesService articlesService;
 
     @PostMapping("/save")
     public void save(@RequestBody ArticlesDto article) {
+        articlesService.save(article);
+    }
+
+    @PostMapping("/save/file")
+    public void saveMultiPart(@RequestParam(name = "name") String name,
+            @RequestParam(name = "url") String url,
+            @RequestParam(name = "description") String description,
+            @RequestParam(name = "video",required = false) String video,
+            @ModelAttribute MultipartFile file) {
+        ArticlesDto article = new ArticlesDto()
+                .setName(name)
+                .setUrl(url)
+                .setDescription(description)
+                .setVideo(video);
+        LOGGER.info(article
+                .toString());
+        saveFile(file);
         articlesService.save(article);
     }
 
@@ -45,5 +70,19 @@ public class ArticlesController {
     @GetMapping("/get/all")
     public List<ArticlesDto> getAll() {
         return articlesService.getAll();
+    }
+
+    private void saveFile(MultipartFile multipartFile) {
+
+        try {
+            if (multipartFile != null) {
+                 LOGGER.info("############### saveFile ####################");
+                String destination = "/home/lorenzo/gitHot/virtual-store/store-app/content/images/" + multipartFile.getOriginalFilename();
+                File file = new File(destination);
+                multipartFile.transferTo(file);
+            }
+        } catch (Exception ex) {
+            LOGGER.error(ex.getMessage());
+        }
     }
 }

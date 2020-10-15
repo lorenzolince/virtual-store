@@ -42,12 +42,17 @@
 </template>
 
 <script>
-import { infos } from "~/store/app";
 export default {
-  async asyncData({ params }) {
-    return {
-      info: infos[infos.findIndex(i => i._id === params.id)]
-    };
+async asyncData({ params }) {
+    try {
+      let info = await fetch(process.env.urlServer+'/api/articles/get?id='+`${params.id}`) 
+        .then(res => res.json())
+        .then(data => data);
+      return { info };
+    } catch (e) {
+      console.error("SOMETHING WENT WRONG :" + e);
+      return { info: {} };
+    }
   }
 };
 </script>

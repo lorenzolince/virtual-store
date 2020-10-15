@@ -20,38 +20,6 @@ export const actions = {
   }
 };
 
-export const infos = [
-  {
-    _id: "1",
-    name: "Video play",
-    url: "https://i.ytimg.com/vi/tgbNymZ7vqY/maxresdefault.jpg",
-    video: "https://www.youtube.com/embed/tgbNymZ7vqY",
-    description: "Mascotas"
-  },
-  {
-    _id: "2",
-    name: "test",
-    url: "http://localhost:8080/store/images/176.png",
-    video: null,
-    description: "test"
-  },
-  {
-    _id: "3",
-    name: "test",
-    url: "http://localhost:8080/store/images/d7.png",
-    video: null,
-    description: "test"
-  },
-
-  {
-    _id: "4",
-    name: "test",
-    url: "http://localhost:8080/store/images/mujer.png",
-    video: null,
-    description: "test"
-  }
-];
-
 export const menu = [
   {
     name: "home",
@@ -60,5 +28,9 @@ export const menu = [
   {
     name: "login",
     url: "/login"
+  },
+  {
+    name: "articles",
+    url: "/Articles"
   }
 ];

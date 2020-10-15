@@ -17,7 +17,7 @@
           Seleccione la imagen para ver el detalle
         </h1>
         <div class="columns is-multiline">
-          <div v-for="info in infos" :key="info._id" class="column is-4">
+          <div v-for="info in infos" :key="info.id" class="column is-4">
             <div class="card">
               <header class="card-header">
                 <p class="card-header-title is-centered">{{ info.name }}</p>
@@ -28,7 +28,7 @@
                 </figure>
               </div>
               <footer class="card-footer">
-                <nuxt-link :to="`/info/${info._id}`" class="card-footer-item">
+                <nuxt-link :to="`/info/${info.id}`" class="card-footer-item">
                   <button class="button is-dark">
                     leer mas
                   </button>
@@ -43,11 +43,21 @@
 </template>
 
 <script>
-import { infos } from "~/store/app";
 export default {
+    async asyncData(context) {
+    try {
+      return await fetch(process.env.urlServer+"api/articles/get/all")
+        .then(res => res.json())
+        .then(data => {
+          return { infos: data };
+        });
+    } catch (e) {
+      console.error("SOMETHING WENT WRONG :" + e);
+    }
+  },
   data() {
     return {
-      infos: infos
+      infos: []
     };
   }
 };

@@ -9,7 +9,7 @@ export default {
   }, 
 
     env: {
-    urlServer: 'http://bridgecom.com.pa/api/rest/pet/'
+    urlServer: 'http://192.168.0.185:8080/store/'
   },
 
   head: {

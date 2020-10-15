@@ -65,4 +65,8 @@ public class ArticlesDto implements Serializable {
         return this;
     }
 
+    @Override 
+    public String toString() {
+        return "ArticlesDto{" + "id=" + id + ", name=" + name + ", url=" + url + ", video=" + video + ", description=" + description + '}';
+    } 
 }

@@ -1,4 +1,0 @@
-2020-10-12 01:04:04 jdbc[3]: exception
-org.h2.jdbc.JdbcSQLSyntaxErrorException: Tabla "DATABASECHANGELOGLOCK" no encontrada
-Table "DATABASECHANGELOGLOCK" not found; SQL statement:
-SELECT COUNT(*) FROM STORE.DATABASECHANGELOGLOCK [42102-200]
