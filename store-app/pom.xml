@@ -47,7 +47,7 @@
             <groupId>org.liquibase</groupId>
             <artifactId>liquibase-core</artifactId>
         </dependency>
-       <dependency>
+        <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-swagger-ui</artifactId>
             <version>2.7.0</version>
@@ -64,37 +64,36 @@
             <artifactId>store-ui</artifactId>
             <version>${project.version}</version>
         </dependency>
-          <dependency>
+        <dependency>
             <groupId>com.llh.virtual.store</groupId>
-             <artifactId>store-home-db</artifactId>
+            <artifactId>store-home-db</artifactId>
             <version>${project.version}</version>
         </dependency>
-         <dependency>
+        <dependency>
             <groupId>com.llh.virtual.store</groupId>
-             <artifactId>store-home-domain</artifactId>
+            <artifactId>store-home-domain</artifactId>
             <version>${project.version}</version>
         </dependency>
-         <dependency>
+        <dependency>
             <groupId>com.llh.virtual.store</groupId>
-             <artifactId>store-home-dao</artifactId>
+            <artifactId>store-home-dao</artifactId>
             <version>${project.version}</version>
         </dependency>
-         <dependency>
+        <dependency>
             <groupId>com.llh.virtual.store</groupId>
-             <artifactId>store-home-service</artifactId>
+            <artifactId>store-home-service</artifactId>
             <version>${project.version}</version>
         </dependency>
-          <dependency>
+        <dependency>
             <groupId>com.llh.virtual.store</groupId>
-             <artifactId>store-home-controller</artifactId>
+            <artifactId>store-home-controller</artifactId>
             <version>${project.version}</version>
         </dependency>
-          <dependency>
+        <dependency>
             <groupId>com.llh.virtual.store</groupId>
-             <artifactId>store-login-db</artifactId>
+            <artifactId>store-login-db</artifactId>
             <version>${project.version}</version>
         </dependency>
-        
     </dependencies>
     <build>
         <finalName>${project.name}</finalName>
@@ -107,6 +106,27 @@
                         <goals>
                             <goal>repackage</goal>
                         </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <version>3.1.2</version>
+                <executions>
+                    <execution>
+                        <id>unpack-dependencies</id>
+                        <phase>process-classes</phase>
+                        <goals>
+                            <goal>unpack-dependencies</goal>
+                        </goals>
+                        <configuration>
+                            <includeGroupIds>com.llh.virtual.store</includeGroupIds>
+                            <includeTypes>jar</includeTypes>
+                            <includes>**/*-db/**/*.xml</includes>
+                            <excludeTransitive>true</excludeTransitive>
+                            <outputDirectory>${project.build.outputDirectory}</outputDirectory>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>

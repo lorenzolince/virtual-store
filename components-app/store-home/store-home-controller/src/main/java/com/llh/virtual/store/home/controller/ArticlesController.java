@@ -44,7 +44,7 @@ public class ArticlesController {
     public void saveMultiPart(@RequestParam(name = "name") String name,
             @RequestParam(name = "url") String url,
             @RequestParam(name = "description") String description,
-            @RequestParam(name = "video",required = false) String video,
+            @RequestParam(name = "video", required = false) String video,
             @ModelAttribute MultipartFile file) {
         ArticlesDto article = new ArticlesDto()
                 .setName(name)
@@ -76,9 +76,10 @@ public class ArticlesController {
 
         try {
             if (multipartFile != null) {
-                 LOGGER.info("############### saveFile ####################");
-                String destination = "/home/lorenzo/gitHot/virtual-store/store-app/content/images/" + multipartFile.getOriginalFilename();
-                File file = new File(destination);
+                LOGGER.info("############### saveFile ####################");
+                String destination = "content" + File.separator + "images" + File.separator + multipartFile.getOriginalFilename();
+                File dir = new File("." + File.separator);
+                File file = new File(dir.getCanonicalPath() + File.separator + destination);
                 multipartFile.transferTo(file);
             }
         } catch (Exception ex) {

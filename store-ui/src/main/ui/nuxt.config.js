@@ -9,7 +9,7 @@ export default {
   }, 
 
     env: {
-    urlServer: 'http://192.168.0.185:8080/store/'
+    urlServer: 'http://localhost:8080/store/'
   },
 
   head: {
