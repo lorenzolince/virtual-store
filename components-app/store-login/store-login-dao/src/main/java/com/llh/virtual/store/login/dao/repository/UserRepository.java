@@ -3,15 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package com.llh.virtual.store.home.dao.repository;
+package com.llh.virtual.store.login.dao.repository;
 
-import com.llh.virtual.store.home.domain.Articles;
+import com.llh.virtual.store.login.domain.User;
+import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
-
 /**
  *
  * @author lorenzo
  */
-public interface ArticlesRepository extends JpaRepository<Articles, Long> {
-    
+public interface UserRepository extends JpaRepository<User, Long> {
+
+   Optional<User> findByUsername(String username);
+
 }

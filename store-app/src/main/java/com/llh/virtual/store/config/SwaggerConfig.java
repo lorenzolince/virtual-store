@@ -4,17 +4,21 @@
  * and open the template in the editor.
  */
 package com.llh.virtual.store.config;
+
 import java.util.ArrayList;
+import java.util.Arrays;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
+import springfox.documentation.service.ApiKey;
 import springfox.documentation.service.Contact;
 import springfox.documentation.service.VendorExtension;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
+
 /**
  *
  * @author lorenzolince
@@ -30,10 +34,11 @@ public class SwaggerConfig {
                 .apis(RequestHandlerSelectors.basePackage("com.llh"))
                 .paths(PathSelectors.ant("/api/**"))
                 .build()
-                .apiInfo(getApiInfo());
+                .apiInfo(getApiInfo())
+                .securitySchemes(Arrays.asList(apiKey()));
     }
 
- private ApiInfo getApiInfo() {
+    private ApiInfo getApiInfo() {
         return new ApiInfo("Virtual Store",
                 "REST Api Documentation",
                 "1.0",
@@ -41,6 +46,10 @@ public class SwaggerConfig {
                 new Contact("Lorenzo Lince", "https://www.linkedin.com/in/lorenzo-lince", "lorenzolince@gmail.com"),
                 "virtual store 01-SNAPSHOT", "http://localhost:8080/store/",
                 new ArrayList<VendorExtension>());
+    }
+
+    private ApiKey apiKey() {
+        return new ApiKey("jwtToken", "Authorization", "header");
     }
 
 }

@@ -23,7 +23,16 @@
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.jsonwebtoken</groupId>
+            <artifactId>jjwt</artifactId>
+            <version>0.9.0</version>
         </dependency>
         <dependency>
             <groupId>com.h2database</groupId>
@@ -92,6 +101,26 @@
         <dependency>
             <groupId>com.llh.virtual.store</groupId>
             <artifactId>store-login-db</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+         <dependency>
+            <groupId>com.llh.virtual.store</groupId>
+            <artifactId>store-login-domain</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+         <dependency>
+            <groupId>com.llh.virtual.store</groupId>
+            <artifactId>store-login-dao</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.llh.virtual.store</groupId>
+            <artifactId>store-login-service</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+           <dependency>
+            <groupId>com.llh.virtual.store</groupId>
+            <artifactId>store-login-controller</artifactId>
             <version>${project.version}</version>
         </dependency>
     </dependencies>

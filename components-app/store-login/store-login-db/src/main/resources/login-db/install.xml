@@ -17,6 +17,10 @@
         relativeToChangelogFile="true"
         path="SEQUENCE/"
     /> 
+         <includeAll
+        relativeToChangelogFile="true"
+        path="initialData/"
+    /> 
   
     
 </databaseChangeLog>

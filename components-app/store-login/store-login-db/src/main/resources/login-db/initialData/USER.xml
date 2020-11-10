@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd
+        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd"
+>
+   
+    <changeSet id="1" author="lorenzo.lince">
+        
+        <insert schemaName="${schema}" tableName="USER">
+            <column name="id"            valueNumeric="S_USER.NEXTVAL"  />
+            <column name="PASSWORD"            value="$2a$10$7EQApl1ijjDKbT2FWuLDVu9Hmi1p408hfYBKKxcl8OxUwu70.r12a"/>
+            <column name="USERNAME"         value="admin"/>
+        </insert>
+        <insert schemaName="${schema}" tableName="USER">
+            <column name="id"            valueNumeric="S_USER.NEXTVAL"  />
+            <column name="PASSWORD"            value="$2a$10$xWjd8vFC9QVQZDRLNlm6.eeowPUGdly7Hr2bEQw8QkTci5aga25oC"/>
+            <column name="USERNAME"         value="user"/>
+        </insert>
+    
+        <insert schemaName="${schema}" tableName="User_roles">
+            <column name="User_id"                 valueNumeric="1"  />
+            <column name="roles"               value="ROLE_USER"/>
+        </insert>
+        <insert schemaName="${schema}" tableName="User_roles">
+            <column name="User_id"                 valueNumeric="1"  />
+            <column name="roles"               value="ROLE_ADMIN"/>
+        </insert>
+        <insert schemaName="${schema}" tableName="User_roles">
+            <column name="User_id"                 valueNumeric="2"  />
+            <column name="roles"               value="ROLE_USER"/>
+        </insert>
+    </changeSet>
+
+</databaseChangeLog>

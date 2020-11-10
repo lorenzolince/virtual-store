@@ -5,7 +5,6 @@
  */
 package com.llh.virtual.store.config;
 
-import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
@@ -29,7 +28,8 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
  */
 @Configuration
 @EnableJpaRepositories(basePackages = {
-    "com.llh.virtual.store.home.dao.repository"
+    "com.llh.virtual.store.home.dao.repository",
+    "com.llh.virtual.store.login.dao.repository"
 }, entityManagerFactoryRef = "entityManagerFactory",
         transactionManagerRef = "transactionManager")
 public class ConfigurationApp {
@@ -43,7 +43,7 @@ public class ConfigurationApp {
     public LocalContainerEntityManagerFactoryBean entityManagerFactory(@Qualifier("dataSource") DataSource dataSource) {
         LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
         em.setDataSource(dataSource);
-        em.setPackagesToScan(new String[]{"com.llh.virtual.store.home.domain"});
+        em.setPackagesToScan(new String[]{"com.llh.virtual.store.home.domain","com.llh.virtual.store.login.domain"});
         JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
         em.setJpaVendorAdapter(vendorAdapter);
         em.setJpaProperties(additionalProperties());
