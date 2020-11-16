@@ -51,3 +51,36 @@
     </section>
   </div>
 </template>
+
+<script>
+
+
+export default {
+   data() {
+    return {
+      email: '',
+      password: '',
+      error: null
+    }
+  },
+
+  methods: {
+    async login() {
+      try {
+   var response= await  this.$axios.post('auth/login', {
+          username: this.email,
+          password: this.password
+        })
+        console.log(response)
+        this.$axios.setHeader('Authorization', response.data.token)
+        this.$axios.setToken(response.data.token)
+        this.$router.push('/')
+     
+      } catch (e) {
+         console.log(e)
+        this.error = "e.response.data.message"
+      }
+    }
+  }
+}
+</script>

@@ -44,21 +44,21 @@
 
 <script>
 export default {
-    async asyncData(context) {
-    try {
-      return await fetch(process.env.urlServer+"api/articles/get/all")
-        .then(res => res.json())
-        .then(data => {
-          return { infos: data };
-        });
-    } catch (e) {
-      console.error("SOMETHING WENT WRONG :" + e);
-    }
-  },
   data() {
     return {
       infos: []
     };
+  }, async mounted(){
+  try {
+      var response = await this.$axios.$get("articles/get/all")
+        console.log(response)
+
+       this.infos = response;
+
+    } catch (e) {
+      console.error("SOMETHING WENT WRONG :" + e);
+    }
+
   }
 };
 </script>

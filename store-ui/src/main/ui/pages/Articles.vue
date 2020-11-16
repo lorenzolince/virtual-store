@@ -142,11 +142,8 @@ export default {
       }
 
       try {
-        let response = await fetch(process.env.urlServer+"/api/articles/save/file", {
-          method: "post",
-          body: formData
-        });
-        this.$router.push("/");
+         var response= await  this.$axios.post('articles/save/file', formData)
+         this.$router.push("/");
       } catch (e) {
         console.error(e);
       }

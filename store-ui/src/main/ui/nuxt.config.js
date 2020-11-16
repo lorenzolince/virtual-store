@@ -51,7 +51,9 @@ export default {
     '@nuxtjs/pwa'
   ],
 
-  axios: {},
+  axios: {
+    baseURL: 'http://localhost:8080/store/api'
+  },
  
   build: {
     extend(config, ctx) {

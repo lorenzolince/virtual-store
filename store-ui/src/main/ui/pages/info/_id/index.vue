@@ -27,7 +27,7 @@
         height="560px"
         :src="`${info.video}`"
         allowfullscreen
-        style="border:none;"
+        style="border: none"
       ></iframe>
 
       <br />
@@ -43,16 +43,19 @@
 
 <script>
 export default {
-async asyncData({ params }) {
+  data() {
+    return {
+      info: [],
+    };
+  },
+  async mounted() {
     try {
-      let info = await fetch(process.env.urlServer+'/api/articles/get?id='+`${params.id}`) 
-        .then(res => res.json())
-        .then(data => data);
-      return { info };
+      var response = await this.$axios.$get("articles/get?id="+this.$route.params.id
+      );
+      this.info = response;
     } catch (e) {
       console.error("SOMETHING WENT WRONG :" + e);
-      return { info: {} };
     }
-  }
+  },
 };
 </script>

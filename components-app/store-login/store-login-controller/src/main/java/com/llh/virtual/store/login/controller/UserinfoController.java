@@ -16,23 +16,33 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static java.util.stream.Collectors.toList;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import static org.springframework.http.ResponseEntity.ok;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestMapping;
+
 /**
  *
  * @author lorenzo
  */
 @RestController()
+@CrossOrigin(origins = "*", maxAge=3600)
+@RequestMapping("api/user")
 public class UserinfoController {
 
+    private Logger LOGGER = LoggerFactory.getLogger(this.getClass());
+
     @SuppressWarnings("rawtypes")
-	@GetMapping("api/me")
-    public ResponseEntity currentUser(@AuthenticationPrincipal UserDetails userDetails){
+    @GetMapping("me")
+    public ResponseEntity currentUser(@AuthenticationPrincipal UserDetails userDetails) {
+        LOGGER.info("  currentUser ");
         Map<Object, Object> model = new HashMap<>();
         model.put("username", userDetails.getUsername());
         model.put("roles", userDetails.getAuthorities()
-            .stream()
-            .map(a -> ((GrantedAuthority) a).getAuthority())
-            .collect(toList())
+                .stream()
+                .map(a -> ((GrantedAuthority) a).getAuthority())
+                .collect(toList())
         );
         return ok(model);
     }

@@ -37,6 +37,7 @@
           <a href="https://www.linkedin.com/in/lorenzo-lince" target="_blank"
             >&copy; Lorenzo Lince</a
           >
+          <button @click="me" class="button is-dark">me</button>
         </v-col>
       </v-row>
     </footer>
@@ -51,9 +52,19 @@ export default {
       links: menu,
       drawer: false,
       miniVariant: false,
-      clipped: false
+      clipped: false,
     };
-  }
+  },
+  methods: {
+    async me() {
+      try {
+        var response = await this.$axios.$get("user/me");
+        console.log(response);
+      } catch (e) {
+        console.log(e);
+      }
+    },
+  },
 };
 </script>
 <style>
