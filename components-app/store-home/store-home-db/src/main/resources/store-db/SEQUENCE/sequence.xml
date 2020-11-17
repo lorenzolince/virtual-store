@@ -12,7 +12,6 @@
             startValue="1"
             minValue="1"
             incrementBy="1"
-            ordered="true"
             cacheSize="50"
         />
      

@@ -37,6 +37,7 @@
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
+             <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>com.google.guava</groupId>
@@ -46,6 +47,16 @@
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.microsoft.sqlserver</groupId>
+            <artifactId>mssql-jdbc</artifactId>
+            <version>6.1.0.jre8</version>
+        </dependency>
+         <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-jdbc</artifactId>
+            <type>jar</type>
         </dependency>
         <dependency>
             <groupId>javax</groupId>
@@ -103,12 +114,12 @@
             <artifactId>store-login-db</artifactId>
             <version>${project.version}</version>
         </dependency>
-         <dependency>
+        <dependency>
             <groupId>com.llh.virtual.store</groupId>
             <artifactId>store-login-domain</artifactId>
             <version>${project.version}</version>
         </dependency>
-         <dependency>
+        <dependency>
             <groupId>com.llh.virtual.store</groupId>
             <artifactId>store-login-dao</artifactId>
             <version>${project.version}</version>
@@ -118,7 +129,7 @@
             <artifactId>store-login-service</artifactId>
             <version>${project.version}</version>
         </dependency>
-           <dependency>
+        <dependency>
             <groupId>com.llh.virtual.store</groupId>
             <artifactId>store-login-controller</artifactId>
             <version>${project.version}</version>

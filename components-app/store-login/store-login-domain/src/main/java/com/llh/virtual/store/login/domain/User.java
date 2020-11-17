@@ -22,7 +22,7 @@ import static java.util.stream.Collectors.toList;
  * @author lorenzo
  */
 @Entity
-@Table(name = "USER")
+@Table(name = "`user`")
 @SequenceGenerator(name = "SequenceUser",
         sequenceName = "S_USER", allocationSize = 1)
 public class User implements UserDetails {

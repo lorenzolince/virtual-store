@@ -37,7 +37,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
                 .antMatchers("/").permitAll()
-                .antMatchers("/h2-console/**").permitAll()
                 .antMatchers("/images/**").permitAll()
                 .antMatchers("/favicon.ico").permitAll()
                 .antMatchers("/_nuxt/**").permitAll()
@@ -69,7 +68,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     public void configure(WebSecurity web) throws Exception {
         web
                 .ignoring()
-                .antMatchers("/h2-console/**")
                 .antMatchers("/images/**")
                 .antMatchers("/favicon.ico")
                 .antMatchers("/_nuxt/**")
