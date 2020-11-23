@@ -45,12 +45,16 @@ public class ArticlesController {
             @RequestParam(name = "url") String url,
             @RequestParam(name = "description") String description,
             @RequestParam(name = "video", required = false) String video,
+            @RequestParam(name = "precio", required = false) double precio,
+            @RequestParam(name = "categoria", required = false) String categoria,
             @ModelAttribute MultipartFile file) {
         ArticlesDto article = new ArticlesDto()
                 .setName(name)
                 .setUrl(url)
                 .setDescription(description)
-                .setVideo(video);
+                .setVideo(video)
+                .setPrecio(precio)
+                .setCategoria(categoria);
         LOGGER.info(article
                 .toString());
         saveFile(file);

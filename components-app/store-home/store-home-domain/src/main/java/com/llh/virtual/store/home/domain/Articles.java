@@ -36,6 +36,10 @@ public class Articles {
     private String video;
     @Column(name = "description")
     private String description;
+     @Column(name = "precio")
+    private double precio;
+      @Column(name = "categoria")
+    private String categoria;
 
     public Long getId() {
         return id;
@@ -75,6 +79,22 @@ public class Articles {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public double getPrecio() {
+        return precio;
+    }
+
+    public void setPrecio(double precio) {
+        this.precio = precio;
+    }
+
+    public String getCategoria() {
+        return categoria;
+    }
+
+    public void setCategoria(String categoria) {
+        this.categoria = categoria;
     }
 
 }

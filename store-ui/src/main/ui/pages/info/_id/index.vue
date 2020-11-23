@@ -36,6 +36,10 @@
           <strong>{{ info.description }}</strong>
         </p>
         <br />
+          <p class="has-text-centered">
+          <strong>Precio: {{ info.precio }}</strong>
+         </p>
+        <br />
       </h4>
     </div>
   </div>

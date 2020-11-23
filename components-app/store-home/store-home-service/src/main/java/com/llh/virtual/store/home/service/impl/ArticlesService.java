@@ -33,6 +33,8 @@ public class ArticlesService implements IarticlesService {
         article.setUrl(articles.getUrl());
         article.setVideo(articles.getVideo());
         article.setDescription(articles.getDescription());
+        article.setPrecio(articles.getPrecio());
+        article.setCategoria(articles.getCategoria());
         articlesRepository.save(article);
     }
 
@@ -46,6 +48,8 @@ public class ArticlesService implements IarticlesService {
             article.setUrl(arti.getUrl());
             article.setVideo(arti.getVideo());
             article.setDescription(arti.getDescription());
+            article.setPrecio(arti.getPrecio());
+            article.setCategoria(arti.getCategoria());
             listArticle.add(article);
         });
         articlesRepository.saveAll(listArticle);
@@ -59,7 +63,9 @@ public class ArticlesService implements IarticlesService {
                 .setName(article.getName())
                 .setUrl(article.getUrl())
                 .setVideo(article.getVideo())
-                .setDescription(article.getDescription());
+                .setDescription(article.getDescription())
+                .setPrecio(article.getPrecio())
+                .setCategoria(article.getCategoria());
     }
 
     @Override
@@ -67,11 +73,13 @@ public class ArticlesService implements IarticlesService {
         return articlesRepository.findAll()
                 .stream()
                 .map(article -> new ArticlesDto()
-                .setId(article.getId())
-                .setName(article.getName())
-                .setUrl(article.getUrl())
-                .setVideo(article.getVideo())
-                .setDescription(article.getDescription()))
+                        .setId(article.getId())
+                        .setName(article.getName())
+                        .setUrl(article.getUrl())
+                        .setVideo(article.getVideo())
+                        .setDescription(article.getDescription())
+                        .setPrecio(article.getPrecio())
+                        .setCategoria(article.getCategoria()))
                 .collect(Collectors.toList());
     }
 

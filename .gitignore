@@ -22,6 +22,9 @@ target
 build/
 nbactions.xml
 target
+store-app/content/images/*.jpg
+store-app/content/images/*.png
+store-app/content/images/*.jfif
 # Apple # 
 .DS_Store
 

@@ -10,6 +10,23 @@
       fixed
       app
     >
+     <v-tabs v-model="menuTab" background-color="dark" dark grow>
+        <v-tab key="menu" >Menu</v-tab>
+      </v-tabs>
+    <v-tabs-items v-model="menuTab" >
+        <v-tab-item key="menu">
+          <v-list v-for="category in allLinks" :key="category.id">
+            <v-list-item :[category.target]="category.url">
+              <v-list-item-action>
+                <v-icon>{{ category.icon }}</v-icon>
+              </v-list-item-action>
+              <v-list-item-content>
+                <v-list-item-title>{{ category.text }}</v-list-item-title>
+              </v-list-item-content>
+            </v-list-item>
+          </v-list>
+        </v-tab-item>
+      </v-tabs-items>
     </v-navigation-drawer>
     <v-app-bar fixed app>
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
@@ -28,7 +45,6 @@
     <v-content>
       <v-container fill-height fluid>
         <nuxt />
-        <notifications group="itineraries" position="top right" />
       </v-container>
     </v-content>
     <footer class="footer home-footer has-background-black">
@@ -45,15 +61,26 @@
   </v-app>
 </template>
 <script>
-import { menu } from "~/store/app";
+import { mapState, mapGetters } from 'vuex'
 export default {
   data() {
     return {
-      links: menu,
       drawer: false,
       miniVariant: false,
       clipped: false,
     };
+  },
+  computed:{
+      ...mapState({
+      allLinks: state => state.app.allLinks,
+      links: state => state.app.menu
+    }),
+     ...mapGetters({
+      menuCategorys: 'app/getDefaultExternalLink'
+    })
+  },
+   mounted() {
+ 
   },
   methods: {
     async me() {

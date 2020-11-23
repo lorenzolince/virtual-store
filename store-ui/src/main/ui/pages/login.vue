@@ -53,34 +53,36 @@
 </template>
 
 <script>
-
-
 export default {
-   data() {
+  data() {
     return {
-      email: '',
-      password: '',
-      error: null
-    }
+      email: "",
+      password: "",
+      error: null,
+    };
   },
 
   methods: {
     async login() {
       try {
-   var response= await  this.$axios.post('auth/login', {
+        var response = await this.$axios.post("auth/login", {
           username: this.email,
-          password: this.password
-        })
-        console.log(response)
-        this.$axios.setHeader('Authorization', response.data.token)
-        this.$axios.setToken(response.data.token)
-        this.$router.push('/')
-     
+          password: this.password,
+        });
+        console.log(response);
+        this.$axios.setHeader("Authorization", response.data.token);
+        this.$axios.setToken(response.data.token);
+        this.$router.push("/");
+        this.$store.dispatch("app/setLinkMenu", {
+          name: "articles",
+          url: "/Articles",
+        });
+         this.$store.dispatch("app/setLogin", true);
       } catch (e) {
-         console.log(e)
-        this.error = "e.response.data.message"
+        console.log(e);
+        this.error = "e.response.data.message";
       }
-    }
-  }
-}
+    },
+  },
+};
 </script>
