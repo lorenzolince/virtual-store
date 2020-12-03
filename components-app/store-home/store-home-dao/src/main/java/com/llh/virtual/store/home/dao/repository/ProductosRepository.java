@@ -4,16 +4,13 @@
  * and open the template in the editor.
  */
 package com.llh.virtual.store.home.dao.repository;
-
-import com.llh.virtual.store.home.domain.Articles;
+import com.llh.virtual.store.home.domain.Productos;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
-
 /**
  *
- * @author lorenzo
+ * @author llince
  */
-public interface ArticlesRepository extends JpaRepository<Articles, Long> {
- 
-    List<Articles> findByCategoria(String categoria);
+public interface ProductosRepository extends JpaRepository<Productos, Long>  {
+    
 }

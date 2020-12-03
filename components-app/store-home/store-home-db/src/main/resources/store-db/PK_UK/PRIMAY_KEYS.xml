@@ -11,5 +11,32 @@
             constraintName="PK_articles"
             columnNames="id"
         />
+          <addPrimaryKey
+            schemaName="${schema}"
+            tableName="ventas"
+            constraintName="PK_ventas"
+            columnNames="id"
+        />
+              <addPrimaryKey
+            schemaName="${schema}"
+            tableName="productos"
+            constraintName="PK_productos"
+            columnNames="id"
+        />      
+    </changeSet> 
+       <changeSet id="2" author="lorenzo.lince">
+     <addForeignKeyConstraint 
+                             baseColumnNames="id_venta"
+                             baseTableName="productos"
+                             constraintName="fk_productos_ventas_id"
+                             referencedColumnNames="id"
+                             referencedTableName="ventas"/>
+     
+       <addForeignKeyConstraint 
+                             baseColumnNames="id_articulo"
+                             baseTableName="productos"
+                             constraintName="fk_productos_id_articulo"
+                             referencedColumnNames="id"
+                             referencedTableName="articles"/>
     </changeSet> 
 </databaseChangeLog>

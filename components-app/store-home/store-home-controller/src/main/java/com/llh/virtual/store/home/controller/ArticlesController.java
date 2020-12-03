@@ -75,6 +75,11 @@ public class ArticlesController {
     public List<ArticlesDto> getAll() {
         return articlesService.getAll();
     }
+    
+      @GetMapping("/get/byCategory")
+    public List<ArticlesDto> getByCategory(@RequestParam(name = "category", required = true) String category) {
+        return articlesService.getByCategory(category);
+    }
 
     private void saveFile(MultipartFile multipartFile) {
 

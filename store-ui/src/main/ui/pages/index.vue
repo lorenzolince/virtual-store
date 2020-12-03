@@ -1,14 +1,9 @@
-<!-- ./pages/index.vue -->
-
 <template>
-  <!-- begin header -->
   <div class="infos">
     <section class="hero is-medium is-dark is-bold">
       <div class="container">
         <h1 class="title">Tienda Virtual</h1>
-        <h2 class="subtitle">
-          Bienvenidos a la tienda virtual😃
-        </h2>
+        <h2 class="subtitle">Bienvenidos a la tienda virtual😃</h2>
       </div>
     </section>
     <section class="main-content">
@@ -16,26 +11,13 @@
         <h1 class="title has-text-centered">
           Seleccione la imagen para ver el detalle
         </h1>
-        <div class="columns is-multiline">
-          <div v-for="info in infos" :key="info.id" class="column is-4">
-            <div class="card">
-              <header class="card-header">
-                <p class="card-header-title is-centered">{{ info.name }}</p>
-              </header>
-              <div class="card-content">
-                <figure class="image is-3by2">
-                  <img :src="`${info.url}`" />
-                </figure>
-              </div>
-              <footer class="card-footer">
-                <nuxt-link :to="`/info/${info.id}`" class="card-footer-item">
-                  <button class="button is-dark">
-                    leer mas
-                  </button>
-                </nuxt-link>
-              </footer>
+          <div class="global">
+            <div class="prod">
+              <producto/>
             </div>
-          </div>
+            <div class="carrito">
+              <carrito-compra></carrito-compra>
+            </div>
         </div>
       </div>
     </section>
@@ -43,31 +25,47 @@
 </template>
 
 <script>
+import producto from "~/components/producto.vue";
+import CarritoCompra from "~/components/carrito.vue";
 export default {
+  components: { producto, CarritoCompra },
   data() {
     return {
-      infos: []
+      infos: [],
+      productos: [
+         { id:1, nombre:'primer producto', precio: 45, img:'producto.jpg' },
+         { id:2, nombre:'segundo producto', precio: 20, img:'producto.jpg' },
+         { id:3, nombre:'tercer producto', precio: 15, img:'producto.jpg' },
+         { id:4, nombre:'cuarto producto', precio: 25, img:'producto.jpg' },
+         { id:5, nombre:'quinto producto', precio: 20, img:'producto.jpg' },
+         { id:6, nombre:'sexto producto', precio: 30, img:'producto.jpg' }
+      ],
     };
-  }, async mounted(){
-  try {
-      var response = await this.$axios.$get("articles/get/all")
-        console.log(response)
+  },
+  async mounted() {
+    try {
+      var response = await this.$axios.$get("articles/get/all");
+      console.log(response);
 
-       this.infos = response;
-
+      this.infos = response;
     } catch (e) {
       console.error("SOMETHING WENT WRONG :" + e);
     }
-
-  }
+  },
 };
 </script>
 <style>
-.infos {
-  height: 100%;
-  width: 100%;
+.global {
+  display: flex;
+  justify-content: space-between;
 }
-.main-content {
-  margin: 20px 0;
+.prod {
+  width: 80%;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+.carrito {
+  width: 18%;
+  background-color: #eeeeee;
 }
 </style>

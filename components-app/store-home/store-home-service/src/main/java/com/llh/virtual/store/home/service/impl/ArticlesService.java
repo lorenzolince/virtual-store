@@ -83,4 +83,19 @@ public class ArticlesService implements IarticlesService {
                 .collect(Collectors.toList());
     }
 
+    @Override
+    public List<ArticlesDto> getByCategory(String category) {
+       return articlesRepository.findByCategoria(category)
+                .stream()
+                .map(article -> new ArticlesDto()
+                        .setId(article.getId())
+                        .setName(article.getName())
+                        .setUrl(article.getUrl())
+                        .setVideo(article.getVideo())
+                        .setDescription(article.getDescription())
+                        .setPrecio(article.getPrecio())
+                        .setCategoria(article.getCategoria()))
+                .collect(Collectors.toList());
+    }
+
 }

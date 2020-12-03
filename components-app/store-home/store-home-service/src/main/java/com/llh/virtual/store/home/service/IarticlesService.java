@@ -21,4 +21,6 @@ public interface IarticlesService {
     public ArticlesDto get(Long id);
 
     public List<ArticlesDto> getAll();
+    
+    public List<ArticlesDto> getByCategory(String category);
 }
