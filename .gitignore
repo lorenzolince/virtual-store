@@ -43,3 +43,5 @@ node
 node_modules
 .nuxt
 store-app/data/STORE.*
+.env
+dist

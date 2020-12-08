@@ -1,0 +1,14 @@
+version: '3.0'
+services:
+  sql-server-store:
+    image: sql-server-store 
+    container_name: sql-server-store
+    hostname: sql-server-store
+    ports:
+     - "1434:1433"
+    environment:
+     - ACCEPT_EULA=Y
+     - MSSQL_SA_PASSWORD=123456qwe!
+
+
+

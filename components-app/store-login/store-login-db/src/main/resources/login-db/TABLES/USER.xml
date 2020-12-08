@@ -14,8 +14,20 @@
                     type="VARCHAR(100)">
                 <constraints nullable="false"/>
             </column>
+            <column name="NAME"
+                    type="VARCHAR(100)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="CELL_PHONE"
+                    type="VARCHAR(25)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="ADDRESS"
+                    type="VARCHAR(200)">
+                <constraints nullable="false"/>
+            </column>
             <column name="PASSWORD"
-                    type="VARCHAR(100)" >
+                type="VARCHAR(200)" >
                 <constraints nullable="false"/>
             </column>
         </createTable>

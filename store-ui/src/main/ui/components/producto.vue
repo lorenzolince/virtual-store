@@ -2,7 +2,7 @@
 
 <template>
   <div class="columns is-multiline">
-    <div v-for="info in infos" :key="info.id" class="column is-4">
+    <div v-for="(info, index) in infos" :key="info.id" class="column is-4">
       <div class="card">
         <header class="card-header">
           <p class="card-header-title is-centered">{{ info.name }}</p>
@@ -12,17 +12,18 @@
             <img :src="`${info.url}`" />
           </figure>
         </div>
-        <footer >
-           <div class="producto">
-               
+        <footer>
+          <div class="producto">
             <nuxt-link :to="`/info/${info.id}`" class="card-footer-item">
               <button class="button is-dark">leer mas</button>
             </nuxt-link>
-             
-            <button class="btn">Agregar Al carrito</button>
+
+            <button v-if="qtyCart === 0" class="btn" @click="addToCart(index)">
+              Agregar Al carrito
+            </button>
             <div class="botones">
-              <button class="btns" @click="inc">+</button>
-              <button class="btns" @click="dec">-</button>
+              <button class="btns" @click="inc(index)">+</button>
+              <button class="btns" @click="dec(index)">-</button>
             </div>
           </div>
         </footer>
@@ -32,23 +33,46 @@
 </template>
 
 <script>
+import logica from '~/static/logica'
 export default {
   data() {
     return {
       infos: [],
-    };
+      shared: logica.data
+    }
+  },
+  computed: {
+    qtyCart() {
+      var busqueda = _.find(this.shared.cart, ['id', this.infos.id])
+      if (typeof busqueda == 'object') {
+        return busqueda.qty
+      } else {
+        return 0
+      }
+    }
   },
   async mounted() {
     try {
-      var response = await this.$axios.$get("articles/get/all");
-      console.log(response);
+      var response = await this.$axios.$get('articles/get/all')
+      console.log(response)
 
-      this.infos = response;
+      this.infos = response
     } catch (e) {
-      console.error("SOMETHING WENT WRONG :" + e);
+      console.error('SOMETHING WENT WRONG :' + e)
     }
   },
-};
+  methods: {
+    addToCart(index) {
+      logica.add(this.infos[index])
+    },
+    inc(index) {
+      logica.inc(this.infos[index])
+    },
+    dec(index) {
+      logica.dec(this.infos[index])
+    }
+  }
+}
 </script>
 <style>
 .infos {

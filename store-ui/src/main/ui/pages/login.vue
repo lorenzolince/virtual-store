@@ -53,36 +53,52 @@
 </template>
 
 <script>
+import { mapState, mapGetters } from 'vuex'
 export default {
   data() {
     return {
-      email: "",
-      password: "",
-      error: null,
-    };
+      email: '',
+      password: '',
+      error: null
+    }
+  },
+  computed: {
+    ...mapState({
+      islogin: state => state.app.islogin
+    })
   },
 
   methods: {
     async login() {
       try {
-        var response = await this.$axios.post("auth/login", {
-          username: this.email,
-          password: this.password,
-        });
-        console.log(response);
-        this.$axios.setHeader("Authorization", response.data.token);
-        this.$axios.setToken(response.data.token);
-        this.$router.push("/");
-        this.$store.dispatch("app/setLinkMenu", {
-          name: "articles",
-          url: "/Articles",
-        });
-         this.$store.dispatch("app/setLogin", true);
+        if (!this.islogin) {
+          var response = await this.$axios.post('auth/login', {
+            username: this.email,
+            password: this.password
+          })
+          console.log(response)
+          this.$axios.setHeader('Authorization', response.data.token)
+          this.$axios.setToken(response.data.token)
+
+          const result = response.data.roles.filter(
+            role => role === 'ROLE_ADMIN'
+          ).length
+          if (result > 0) {
+            this.$store.dispatch('app/setLinkMenuDefault')
+          }else {
+          this.$store.dispatch('app/setLinkMenu')
+          }
+          this.$store.dispatch('app/setLogin', true)
+          this.$store.dispatch('app/setRole', response.data.roles)
+          this.$store.dispatch('app/setUser', response.data.user)
+          this.$root.$emit("user_name")
+          this.$router.push('/')
+        }
       } catch (e) {
-        console.log(e);
-        this.error = "e.response.data.message";
+        console.log(e)
+        this.error = 'e.response.data.message'
       }
-    },
-  },
-};
+    }
+  }
+}
 </script>

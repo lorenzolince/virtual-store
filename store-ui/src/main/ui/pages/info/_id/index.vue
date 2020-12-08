@@ -36,9 +36,9 @@
           <strong>{{ info.description }}</strong>
         </p>
         <br />
-          <p class="has-text-centered">
+        <p class="has-text-centered">
           <strong>Precio: {{ info.precio }}</strong>
-         </p>
+        </p>
         <br />
       </h4>
     </div>
@@ -49,17 +49,18 @@
 export default {
   data() {
     return {
-      info: [],
-    };
+      info: []
+    }
   },
   async mounted() {
     try {
-      var response = await this.$axios.$get("articles/get?id="+this.$route.params.id
-      );
-      this.info = response;
+      var response = await this.$axios.$get(
+        'articles/get?id=' + this.$route.params.id
+      )
+      this.info = response
     } catch (e) {
-      console.error("SOMETHING WENT WRONG :" + e);
+      console.error('SOMETHING WENT WRONG :' + e)
     }
-  },
-};
+  }
+}
 </script>

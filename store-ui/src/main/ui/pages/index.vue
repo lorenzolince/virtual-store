@@ -11,13 +11,13 @@
         <h1 class="title has-text-centered">
           Seleccione la imagen para ver el detalle
         </h1>
-          <div class="global">
-            <div class="prod">
-              <producto/>
-            </div>
-            <div class="carrito">
-              <carrito-compra></carrito-compra>
-            </div>
+        <div class="global">
+          <div class="prod">
+            <producto />
+          </div>
+          <div class="carrito">
+            <carrito-compra></carrito-compra>
+          </div>
         </div>
       </div>
     </section>
@@ -25,34 +25,26 @@
 </template>
 
 <script>
-import producto from "~/components/producto.vue";
-import CarritoCompra from "~/components/carrito.vue";
+import producto from '~/components/producto.vue'
+import CarritoCompra from '~/components/carrito.vue'
 export default {
   components: { producto, CarritoCompra },
   data() {
     return {
-      infos: [],
-      productos: [
-         { id:1, nombre:'primer producto', precio: 45, img:'producto.jpg' },
-         { id:2, nombre:'segundo producto', precio: 20, img:'producto.jpg' },
-         { id:3, nombre:'tercer producto', precio: 15, img:'producto.jpg' },
-         { id:4, nombre:'cuarto producto', precio: 25, img:'producto.jpg' },
-         { id:5, nombre:'quinto producto', precio: 20, img:'producto.jpg' },
-         { id:6, nombre:'sexto producto', precio: 30, img:'producto.jpg' }
-      ],
-    };
+      infos: []
+    }
   },
   async mounted() {
     try {
-      var response = await this.$axios.$get("articles/get/all");
-      console.log(response);
+      var response = await this.$axios.$get('articles/get/all')
+      console.log(response)
 
-      this.infos = response;
+      this.infos = response
     } catch (e) {
-      console.error("SOMETHING WENT WRONG :" + e);
+      console.error('SOMETHING WENT WRONG :' + e)
     }
-  },
-};
+  }
+}
 </script>
 <style>
 .global {

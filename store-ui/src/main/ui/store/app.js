@@ -1,71 +1,104 @@
-import Vuex from "vuex";
+import Vuex from 'vuex'
 
 export const state = () => ({
-  islogin:false,
-  role:[],
+  islogin: false,
+  role: [],
+  user: {
+    username: null,
+    nombre: null,
+    celular: null,
+    direccion: null
+  },
   allLinks: [
     {
       id: 1,
-      text: "hogar",
+      text: 'hogar',
       icon: 'mdi-view-dashboard',
-      url:"/",
-      target:'to'
+      url: '/',
+      target: 'to'
     },
     {
       id: 2,
-      text: "belleza",
+      text: 'belleza',
       icon: 'mdi-view-dashboard',
-      url:"/",
-      target:'to'
+      url: '/',
+      target: 'to'
     },
     {
       id: 3,
-      text: "salud",
+      text: 'salud',
       icon: 'mdi-view-dashboard',
-      url:"/",
-      target:'to'
+      url: '/',
+      target: 'to'
     }
   ],
-  menu : [
+  menu: [
     {
-      name: "home",
-      url: "/"
+      name: 'home',
+      url: '/'
     },
     {
-      name: "login",
-      url: "/login"
+      name: 'login',
+      url: '/login'
     }
   ]
-});
+})
 
 export const mutations = {
-  setLinkMenu(state, link) {
-    state.menu.push(link);
+  setLinkMenu(state) {
+    state.menu=[
+      {
+        name: 'home',
+        url: '/'
+      }
+    ]
+  },
+  setLinkMenuDefault(state) {
+    state.menu=[
+      {
+        name: 'home',
+        url: '/'
+      },
+      {
+        name: 'articles',
+        url: '/Articles'
+      }
+    ]
   },
   setLogin(state, islogin) {
-    state.islogin=islogin;
+    state.islogin = islogin
   },
   setRole(state, role) {
-    state.role=role;
+    state.role = role
+  },
+  setUser(state, user) {
+    state.user = user
   }
-};
+}
 
 export const getters = {
   getDefaultExternalLink: state => {
     return state.allLinks ? state.allLinks[0] : null
+  },
+  getUser: state => {
+    return state.user
   }
-};
+}
 
 export const actions = {
   setLinkMenu(vuexContext, link) {
-    vuexContext.commit("setLinkMenu", link);
+    vuexContext.commit('setLinkMenu')
   },
   setLogin(vuexContext, islogin) {
-    vuexContext.commit("setLogin", islogin);
+    vuexContext.commit('setLogin', islogin)
   },
   setRole(vuexContext, role) {
-    vuexContext.commit("setLinkMenu", role);
+    vuexContext.commit('setRole', role)
+  },
+  setUser(vuexContext, user) {
+    vuexContext.commit('setUser', user)
+  },
+  setLinkMenuDefault(vuexContext) {
+    vuexContext.commit('setLinkMenuDefault')
   }
-};
-
-
+}

@@ -78,12 +78,13 @@
             <version>2.7.0</version>
             <scope>compile</scope>
         </dependency> 
-        <!-- INTERNAL DEPENDENCY-->
+        <!-- INTERNAL DEPENDENCY
         <dependency>
             <groupId>com.llh.virtual.store</groupId>
             <artifactId>store-ui</artifactId>
             <version>${project.version}</version>
         </dependency>
+        -->
         <dependency>
             <groupId>com.llh.virtual.store</groupId>
             <artifactId>store-home-db</artifactId>

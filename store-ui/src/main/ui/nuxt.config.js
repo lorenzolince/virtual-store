@@ -1,3 +1,4 @@
+import colors from 'vuetify/es5/util/colors'
 export default {
     mode: 'spa',
     generate: {
@@ -9,7 +10,7 @@ export default {
   }, 
 
     env: {
-    urlServer: 'http://localhost:8080/store/'
+    urlServer: process.env.SERVER_HOST+'/store/'
   },
 
   head: {
@@ -37,6 +38,10 @@ export default {
  
   css: [],
 
+  plugins: [
+    '@/plugins/vue-notifications',
+    { src: '~/plugins/vuex-persist', ssr: false }
+  ],
   loading: { color: '#3B8070' },
 
   
@@ -52,7 +57,25 @@ export default {
   ],
 
   axios: {
-    baseURL: 'http://localhost:8080/store/api'
+    baseURL: process.env.SERVER_HOST+'/store/api'
+  },
+  
+  vuetify: {
+    customVariables: ['~/assets/variables.scss'],
+    theme: {
+      dark: false,
+      themes: {
+        dark: {
+          primary: colors.blue.darken2,
+          accent: colors.grey.darken3,
+          secondary: colors.amber.darken3,
+          info: colors.teal.lighten1,
+          warning: colors.amber.base,
+          error: colors.deepOrange.accent4,
+          success: colors.green.accent3
+        }
+      }
+    }
   },
  
   build: {

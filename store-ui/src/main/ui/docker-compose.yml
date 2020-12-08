@@ -6,6 +6,8 @@ services:
     hostname: store-app
     ports:
      - "8084:8080"
+    environment:
+      - SERVER_HOST=http://${COMPUTERNAME}:8080
 
 
 

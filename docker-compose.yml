@@ -1,11 +1,34 @@
 version: '3.0'
 services:
+  sql-server-store:
+    image: sql-server-store 
+    container_name: sql-server-store
+    hostname: sql-server-store
+    ports:
+     - "1434:1433"
+    environment:
+     - ACCEPT_EULA=Y
+     - MSSQL_SA_PASSWORD=123456qwe!
   spring-boot-app:
     image: spring-boot-app
     container_name: spring-boot-app
     hostname: spring-boot-app
     ports:
      - "8080:8080"
+    environment:
+     - HOST_DB=sql-server-store
+     - USER_DB=sa
+     - PWD_DB=123456qwe!
+    links:
+     - sql-server-store
+    depends_on:
+      - sql-server-store
+   store-app:
+     image: store-app
+     container_name: store-app
+     hostname: store-app
+     ports:
+      - "8084:8080"
 
 
 

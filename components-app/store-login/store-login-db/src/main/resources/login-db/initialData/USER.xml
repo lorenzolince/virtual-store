@@ -12,11 +12,17 @@
             <column name="id"            valueNumeric="NEXT VALUE FOR ${schema}.S_USER"  />
             <column name="PASSWORD"      value="$2a$10$7EQApl1ijjDKbT2FWuLDVu9Hmi1p408hfYBKKxcl8OxUwu70.r12a"/>
             <column name="USERNAME"      value="admin@gmail.com"/>
+            <column name="NAME"      value="Martha Jurado"/>
+            <column name="CELL_PHONE"      value="6602-7124"/>
+            <column name="ADDRESS"      value="Isla de Montelimar"/>
         </insert>
         <insert schemaName="${schema}" tableName="USER">
             <column name="id"                  valueNumeric="NEXT VALUE FOR ${schema}.S_USER"  />
             <column name="PASSWORD"            value="$2a$10$xWjd8vFC9QVQZDRLNlm6.eeowPUGdly7Hr2bEQw8QkTci5aga25oC"/>
-            <column name="USERNAME"            value="user@gmail.com"/>
+            <column name="USERNAME"            value="lorenzolince@gmail.com"/>
+            <column name="NAME"      value="Lorenzo Lincce"/>
+            <column name="CELL_PHONE"      value="6264-1501"/>
+            <column name="ADDRESS"      value="Isla de Montelimar"/>
         </insert>
     
         <insert schemaName="${schema}" tableName="User_roles">

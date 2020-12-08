@@ -43,6 +43,13 @@ public class User implements UserDetails {
     @NotEmpty
     @Column(name = "PASSWORD")
     private String password;
+    @Column(name = "NAME")
+    private String nombre;
+    @Column(name = "CELL_PHONE")
+    private String celular;
+
+    @Column(name = "ADDRESS")
+    private String direccion;
 
     @ElementCollection(fetch = FetchType.EAGER)
     private List<String> roles = new ArrayList<>();
@@ -106,6 +113,33 @@ public class User implements UserDetails {
 
     public User setPassword(String password) {
         this.password = password;
+        return this;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public User setNombre(String nombre) {
+        this.nombre = nombre;
+        return this;
+    }
+
+    public String getCelular() {
+        return celular;
+    }
+
+    public User setCelular(String celular) {
+        this.celular = celular;
+        return this;
+    }
+
+    public String getDireccion() {
+        return direccion;
+    }
+
+    public User setDireccion(String direccion) {
+        this.direccion = direccion;
         return this;
     }
 

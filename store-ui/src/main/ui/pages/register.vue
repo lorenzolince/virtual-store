@@ -7,8 +7,6 @@
             <div class="column is-4 is-offset-4">
               <h2 class="title has-text-centered">Register!</h2>
 
-              <Notification v-if="error" :message="error" />
-
               <form method="post" @submit.prevent="register">
                 <div class="field">
                   <label class="label">Username</label>
@@ -30,6 +28,30 @@
                       type="email"
                       class="input"
                       name="email"
+                      required
+                    />
+                  </div>
+                </div>
+                <div class="field">
+                  <label class="label">Cell Phone</label>
+                  <div class="control">
+                    <input
+                      v-model="celular"
+                      type="text"
+                      class="input"
+                      name="celular"
+                      required
+                    />
+                  </div>
+                </div>
+                <div class="field">
+                  <label class="label">Address</label>
+                  <div class="control">
+                    <input
+                      v-model="direccion"
+                      type="text"
+                      class="input"
+                      name="celular"
                       required
                     />
                   </div>
@@ -63,3 +85,30 @@
     </section>
   </div>
 </template>
+<script>
+export default {
+  data() {
+    return {
+      username: '',
+      email: '',
+      password: '',
+      celular: '',
+      direccion: ''
+    }
+  },
+  methods: {
+    async register() {
+      const UserRegister = {
+        nombre: this.username,
+        email: this.email,
+        password: this.password,
+        celular: this.celular,
+        direccion: this.direccion
+      }
+      console.log(UserRegister)
+      var response = await this.$axios.$post('register', UserRegister)
+      this.$router.push('/login')
+    }
+  }
+}
+</script>
