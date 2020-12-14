@@ -19,6 +19,13 @@ spec:
         image: localhost:5000/spring-boot-app
         ports:
         - containerPort: 8080
+        env:
+          - name: "HOST_DB"
+            value: "sql-server-store"
+          - name: "USER_DB"
+            value: "sa"
+          - name: "PWD_DB"
+            value: "123456qwe!"
         volumeMounts:
           - name: images
             mountPath: /content/images
