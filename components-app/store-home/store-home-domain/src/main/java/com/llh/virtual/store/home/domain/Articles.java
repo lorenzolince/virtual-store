@@ -36,10 +36,12 @@ public class Articles {
     private String video;
     @Column(name = "description")
     private String description;
-     @Column(name = "precio")
+    @Column(name = "precio")
     private double precio;
-      @Column(name = "categoria")
+    @Column(name = "categoria")
     private String categoria;
+    @Column(name = "precio_real")
+    private double precioReal;
 
     public Long getId() {
         return id;
@@ -95,6 +97,14 @@ public class Articles {
 
     public void setCategoria(String categoria) {
         this.categoria = categoria;
+    }
+
+    public double getPrecioReal() {
+        return precioReal;
+    }
+
+    public void setPrecioReal(double precioReal) {
+        this.precioReal = precioReal;
     }
 
 }

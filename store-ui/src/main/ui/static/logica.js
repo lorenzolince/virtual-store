@@ -36,5 +36,7 @@ export default {
         this.data.cart[index].qty--
       }
     }
+  },remove(){
+    this.data.cart=[]
   }
 }

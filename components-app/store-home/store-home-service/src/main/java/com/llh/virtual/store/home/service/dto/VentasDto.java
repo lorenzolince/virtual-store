@@ -34,7 +34,7 @@ public class VentasDto {
 
     public enum Status {
 
-        PROCESO, VENDIDO, CANCELADO;
+        PROCESO, VENDIDO, CANCELADO,ENTREGADO;
     }
 
     public Long getId() {

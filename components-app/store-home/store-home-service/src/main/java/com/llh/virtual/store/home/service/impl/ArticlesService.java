@@ -34,6 +34,7 @@ public class ArticlesService implements IarticlesService {
         article.setVideo(articles.getVideo());
         article.setDescription(articles.getDescription());
         article.setPrecio(articles.getPrecio());
+        article.setPrecioReal(articles.getPrecioReal());
         article.setCategoria(articles.getCategoria());
         articlesRepository.save(article);
     }
@@ -49,6 +50,7 @@ public class ArticlesService implements IarticlesService {
             article.setVideo(arti.getVideo());
             article.setDescription(arti.getDescription());
             article.setPrecio(arti.getPrecio());
+            article.setPrecioReal(arti.getPrecioReal());
             article.setCategoria(arti.getCategoria());
             listArticle.add(article);
         });
@@ -65,6 +67,7 @@ public class ArticlesService implements IarticlesService {
                 .setVideo(article.getVideo())
                 .setDescription(article.getDescription())
                 .setPrecio(article.getPrecio())
+                .setPrecioReal(article.getPrecioReal())
                 .setCategoria(article.getCategoria());
     }
 
@@ -79,6 +82,7 @@ public class ArticlesService implements IarticlesService {
                         .setVideo(article.getVideo())
                         .setDescription(article.getDescription())
                         .setPrecio(article.getPrecio())
+                        .setPrecioReal(article.getPrecioReal())
                         .setCategoria(article.getCategoria()))
                 .collect(Collectors.toList());
     }

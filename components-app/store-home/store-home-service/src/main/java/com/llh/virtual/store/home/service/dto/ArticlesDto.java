@@ -21,6 +21,7 @@ public class ArticlesDto implements Serializable {
     private String description;
     private double precio;
     private String categoria;
+    private double precioReal;
 
     public Long getId() {
         return id;
@@ -37,7 +38,7 @@ public class ArticlesDto implements Serializable {
 
     public ArticlesDto setName(String name) {
         this.name = name;
-         return this;
+        return this;
     }
 
     public String getUrl() {
@@ -46,7 +47,7 @@ public class ArticlesDto implements Serializable {
 
     public ArticlesDto setUrl(String url) {
         this.url = url;
-         return this;
+        return this;
     }
 
     public String getVideo() {
@@ -85,10 +86,18 @@ public class ArticlesDto implements Serializable {
         return this;
     }
 
+    public double getPrecioReal() {
+        return precioReal;
+    }
+
+    public ArticlesDto setPrecioReal(double precioReal) {
+        this.precioReal = precioReal;
+        return this;
+    }
+
     @Override
     public String toString() {
         return "ArticlesDto{" + "id=" + id + ", name=" + name + ", url=" + url + ", video=" + video + ", description=" + description + ", precio=" + precio + ", categoria=" + categoria + '}';
     }
 
-    
 }

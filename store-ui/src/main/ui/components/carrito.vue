@@ -16,54 +16,64 @@
   </div>
 </template>
 <script>
-import logica from '~/static/logica'
-import _ from 'lodash'
-import { mapGetters } from 'vuex'
+import logica from "~/static/logica";
+import _ from "lodash";
+import { mapGetters } from "vuex";
 export default {
   data() {
     return {
-      items: logica.data.cart
-    }
+      items: logica.data.cart,
+    };
   },
   computed: {
     total() {
-      return _.sumBy(this.items, function(it) {
-        return it.precio * it.qty
-      })
+      return _.sumBy(this.items, function (it) {
+        return it.precio * it.qty;
+      });
     },
     ...mapGetters({
-      user: 'app/getUser'
-    })
+      user: "app/getUser",
+    }),
   },
+  mounted() {
+    this.$root.$on("removeLogica", () => {
+        logica.remove();
+        this.items = logica.data.cart;
+    });
+   
+  }
+  ,
   methods: {
     async guardar() {
       if (this.user.username == null) {
-        this.$router.push('/login')
+        this.$router.push("/login");
       } else {
         const venta = {
           celular: this.user.celular,
           direccion: this.user.direccion,
           nombreComprador: this.user.nombre,
           productos: [],
-          status: 'PROCESO',
-          total: this.total
-        }
-        const productos = []
-        this.items.forEach(item => {
+          status: "PROCESO",
+          total: this.total,
+        };
+        const productos = [];
+        this.items.forEach((item) => {
           productos.push({
             cantidad: item.qty,
-            idArticles: item.id
-          })
-        })
-        venta.productos = productos
-        console.log(venta)
-        console.log(this.total)
-        var response = await this.$axios.$post('ventas/save', venta)
-        console.log(response)
+            idArticles: item.id,
+          });
+        });
+        venta.productos = productos;
+        console.log(venta);
+        console.log(this.total);
+        var response = await this.$axios.$post("ventas/save", venta);
+        console.log(response);
+        logica.remove();
+        this.items = logica.data.cart;
       }
-    }
-  }
-}
+    },
+  },
+};
 </script>
 <style>
 img {

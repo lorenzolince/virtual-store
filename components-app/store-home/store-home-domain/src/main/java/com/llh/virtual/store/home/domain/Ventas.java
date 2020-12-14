@@ -119,7 +119,7 @@ public class Ventas {
 
     public enum Status {
 
-        PROCESO, VENDIDO, CANCELADO;
+        PROCESO, VENDIDO, CANCELADO, ENTREGADO;
     }
 
 }

@@ -7,15 +7,22 @@ package com.llh.virtual.store.home.service;
 
 import com.llh.virtual.store.home.service.dto.VentasDto;
 import java.util.List;
+import java.util.Map;
 
 /**
  *
  * @author llince
  */
 public interface IventasService {
-    
-     public void save(VentasDto ventas);
-     
-      public  List<VentasDto> getAll();
-    
+
+    public void save(VentasDto ventas);
+
+    public List<VentasDto> getAll();
+
+    public List<Map> getAllVentas();
+
+    public List<Map> getProductosByVenta(int id);
+
+    int updateEstadoVenta(String status, int id);
+
 }

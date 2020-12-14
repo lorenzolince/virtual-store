@@ -14,7 +14,6 @@
                 v-model="info.name"
                 class="input"
                 type="text"
-                placeholder="What is your article name ?"
               />
             </div>
           </div>
@@ -25,7 +24,6 @@
                 v-model="info.url"
                 class="input"
                 type="text"
-                placeholder="What is your article url ?"
               />
             </div>
           </div>
@@ -36,7 +34,6 @@
                 v-model="info.video"
                 class="input"
                 type="text"
-                placeholder="What is your article video ?"
               />
             </div>
           </div>
@@ -47,7 +44,6 @@
               <textarea
                 v-model="info.description"
                 class="textarea"
-                placeholder="Describe your article succintly"
               ></textarea>
             </div>
           </div>
@@ -58,7 +54,16 @@
                 v-model="info.precio"
                 class="input"
                 type="text"
-                placeholder="What is your article Precio ?"
+              />
+            </div>
+          </div>
+            <div class="field">
+            <label class="label">Precio real</label>
+            <div class="control">
+              <input
+                v-model="info.precioReal"
+                class="input"
+                type="text"
               />
             </div>
           </div>
@@ -132,6 +137,7 @@ export default {
         name: '',
         description: '',
         precio: null,
+        precioReal: null,
         categoria: null,
         url: '',
         video: null,

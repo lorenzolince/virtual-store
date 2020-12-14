@@ -1,7 +1,7 @@
 <template>
   <div class="mapsSheet" v-show="isShowSing">
     <div>
-      <span id="userId" style="font-weight: bold" hidden  ></span> &nbsp;&nbsp;
+      <span id="userId" style="font-weight: bold" hidden></span> &nbsp;&nbsp;
       <a id="sign-out" class="action" hidden>Sign Out</a>
       <v-progress-circular
         v-show="isShowLoading"
@@ -51,7 +51,7 @@ export default {
     this.$root.$on("user_name", () => {
       var cutName = this.user.nombre.substr(0, 2);
       this.vAvatar = cutName.toUpperCase();
-      this.isShowSing= true
+      this.isShowSing = true;
     });
   },
   computed: {
@@ -63,8 +63,12 @@ export default {
     async signOutDropdown() {
       this.showLoading();
       var response = await this.$axios.$get("auth/logout");
+      this.$store.dispatch("app/setDefaultState");
+      this.vAvatar = "";
+      this.isShowLoading = false;
+      this.isShowSing = false;
+      this.$root.$emit("removeLogica");
       this.$router.push("/");
-       location.reload();
     },
     showLoading() {
       console.log("loading ");

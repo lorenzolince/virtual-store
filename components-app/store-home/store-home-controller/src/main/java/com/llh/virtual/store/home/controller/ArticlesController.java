@@ -46,6 +46,7 @@ public class ArticlesController {
             @RequestParam(name = "description") String description,
             @RequestParam(name = "video", required = false) String video,
             @RequestParam(name = "precio", required = false) double precio,
+            @RequestParam(name = "precioReal", required = false) double precioReal,
             @RequestParam(name = "categoria", required = false) String categoria,
             @ModelAttribute MultipartFile file) {
         ArticlesDto article = new ArticlesDto()
@@ -54,6 +55,7 @@ public class ArticlesController {
                 .setDescription(description)
                 .setVideo(video)
                 .setPrecio(precio)
+                .setPrecioReal(precioReal)
                 .setCategoria(categoria);
         LOGGER.info(article
                 .toString());

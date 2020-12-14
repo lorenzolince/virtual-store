@@ -45,6 +45,49 @@ export const state = () => ({
 })
 
 export const mutations = {
+  setDefaultState(state) {
+    state.islogin= false
+    state.role= []
+    state.user= {
+        username: null,
+        nombre: null,
+        celular: null,
+        direccion: null
+      }
+      state.allLinks= [
+        {
+          id: 1,
+          text: 'hogar',
+          icon: 'mdi-view-dashboard',
+          url: '/',
+          target: 'to'
+        },
+        {
+          id: 2,
+          text: 'belleza',
+          icon: 'mdi-view-dashboard',
+          url: '/',
+          target: 'to'
+        },
+        {
+          id: 3,
+          text: 'salud',
+          icon: 'mdi-view-dashboard',
+          url: '/',
+          target: 'to'
+        }
+      ],
+      state.menu= [
+        {
+          name: 'home',
+          url: '/'
+        },
+        {
+          name: 'login',
+          url: '/login'
+        }
+      ]
+  },
   setLinkMenu(state) {
     state.menu=[
       {
@@ -62,6 +105,11 @@ export const mutations = {
       {
         name: 'articles',
         url: '/Articles'
+      }
+      ,
+      {
+        name: 'ventas',
+        url: '/ventas'
       }
     ]
   },
@@ -100,5 +148,8 @@ export const actions = {
   },
   setLinkMenuDefault(vuexContext) {
     vuexContext.commit('setLinkMenuDefault')
+  },
+  setDefaultState(vuexContext) {
+    vuexContext.commit('setDefaultState')
   }
 }

@@ -38,8 +38,10 @@ export default {
     try {
       var response = await this.$axios.$get('articles/get/all')
       console.log(response)
-
       this.infos = response
+        this.$root.$on("reload", () => {
+       location.reload();
+    });
     } catch (e) {
       console.error('SOMETHING WENT WRONG :' + e)
     }

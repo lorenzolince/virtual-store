@@ -16,6 +16,7 @@ import com.llh.virtual.store.home.service.dto.VentasDto;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -83,6 +84,21 @@ public class VentasService implements IventasService {
                                         .setIdArticles(pro.getArticle().getId()))
                                 .collect(Collectors.toList())))
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Map> getAllVentas() {
+        return ventasRepository.findAllVentas();
+    }
+
+    @Override
+    public List<Map> getProductosByVenta(int id) {
+        return ventasRepository.findProductosByIdVentas(id);
+    }
+
+    @Override
+    public int updateEstadoVenta(String status, int id) {
+        return ventasRepository.updateEstadoVenta(status, id);
     }
 
 }
