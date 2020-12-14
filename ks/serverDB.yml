@@ -1,12 +1,12 @@
 kind: Service
 apiVersion: v1
 metadata:
-  name: spring-boot-app
+  name: sql-server-store
 spec:
   type: LoadBalancer
   selector:
-    app: spring-boot-app
+    app: sql-server-store
   ports:
   - protocol: TCP
-    port: 80
-    targetPort: 8080
+    port: 1433
+    targetPort: 1433

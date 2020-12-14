@@ -23,12 +23,12 @@ services:
      - sql-server-store
     depends_on:
       - sql-server-store
-  #store-app:
-  #  image: store-app
-  #  container_name: store-app
-  #  hostname: store-app
-  #  ports:
-  #   - "8084:8080"
+  store-app:
+    image: store-app
+    container_name: store-app
+    hostname: store-app
+    ports:
+     - "8084:8080"
 
 
 

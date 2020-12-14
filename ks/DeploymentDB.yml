@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sql-server-store
+  labels:
+    app: sql-server-store
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sql-server-store
+  template:
+    metadata:
+      labels:
+        app: sql-server-store
+    spec:
+      containers:
+      - name: sql-server-store
+        image: localhost:5000/sql-server-store
+        ports:
+        - containerPort: 1433
+        env:
+          - name: "ACCEPT_EULA"
+            value: "Y"
+          - name: "MSSQL_SA_PASSWORD"
+            value: "123456qwe!"
