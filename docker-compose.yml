@@ -5,7 +5,7 @@ services:
     container_name: sql-server-store
     hostname: sql-server-store
     ports:
-     - "1434:1433"
+     - "1433:1433"
     environment:
      - ACCEPT_EULA=Y
      - MSSQL_SA_PASSWORD=123456qwe!
@@ -23,12 +23,12 @@ services:
      - sql-server-store
     depends_on:
       - sql-server-store
-  store-app:
-    image: store-app
-    container_name: store-app
-    hostname: store-app
-    ports:
-     - "8084:8080"
+  #store-app:
+  #  image: store-app
+  #  container_name: store-app
+  #  hostname: store-app
+  #  ports:
+  #   - "8084:8080"
 
 
 

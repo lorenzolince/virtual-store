@@ -33,46 +33,66 @@
 </template>
 
 <script>
-import logica from '~/static/logica'
+import logica from "~/static/logica";
+import { mapGetters } from "vuex";
 export default {
   data() {
     return {
       infos: [],
-      shared: logica.data
-    }
+      shared: logica.data,
+    };
   },
   computed: {
+    ...mapGetters({
+      typeArticle: "app/getTypeArticle",
+    }),
     qtyCart() {
-      var busqueda = _.find(this.shared.cart, ['id', this.infos.id])
-      if (typeof busqueda == 'object') {
-        return busqueda.qty
+      var busqueda = _.find(this.shared.cart, ["id", this.infos.id]);
+      if (typeof busqueda == "object") {
+        return busqueda.qty;
       } else {
-        return 0
+        return 0;
       }
-    }
+    },
   },
   async mounted() {
     try {
-      var response = await this.$axios.$get('articles/get/all')
-      console.log(response)
-
-      this.infos = response
+      if (this.typeArticle == "all") {
+        var response = await this.$axios.$get("articles/get/all");
+        this.infos = response;
+      }else {
+          var response = await this.$axios.$get(
+            "articles/get/byCategory?category=" + this.typeArticle
+          );
+          this.infos = response;
+        }
+      this.$root.$on("TypeArticle", async () => {
+        if (this.typeArticle == "all") {
+          var response = await this.$axios.$get("articles/get/all");
+          this.infos = response;
+        } else {
+          var response = await this.$axios.$get(
+            "articles/get/byCategory?category=" + this.typeArticle
+          );
+          this.infos = response;
+        }
+      });
     } catch (e) {
-      console.error('SOMETHING WENT WRONG :' + e)
+      console.error("SOMETHING WENT WRONG :" + e);
     }
   },
   methods: {
     addToCart(index) {
-      logica.add(this.infos[index])
+      logica.add(this.infos[index]);
     },
     inc(index) {
-      logica.inc(this.infos[index])
+      logica.inc(this.infos[index]);
     },
     dec(index) {
-      logica.dec(this.infos[index])
-    }
-  }
-}
+      logica.dec(this.infos[index]);
+    },
+  },
+};
 </script>
 <style>
 .infos {

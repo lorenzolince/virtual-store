@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 export const state = () => ({
   islogin: false,
   role: [],
+  typeArticle: 'all',
   user: {
     username: null,
     nombre: null,
@@ -12,20 +13,27 @@ export const state = () => ({
   allLinks: [
     {
       id: 1,
-      text: 'hogar',
+      text: 'all',
       icon: 'mdi-view-dashboard',
       url: '/',
       target: 'to'
     },
     {
       id: 2,
-      text: 'belleza',
+      text: 'hogar',
       icon: 'mdi-view-dashboard',
       url: '/',
       target: 'to'
     },
     {
       id: 3,
+      text: 'belleza',
+      icon: 'mdi-view-dashboard',
+      url: '/',
+      target: 'to'
+    },
+    {
+      id: 4,
       text: 'salud',
       icon: 'mdi-view-dashboard',
       url: '/',
@@ -57,20 +65,27 @@ export const mutations = {
       state.allLinks= [
         {
           id: 1,
-          text: 'hogar',
+          text: 'all',
           icon: 'mdi-view-dashboard',
           url: '/',
           target: 'to'
         },
         {
           id: 2,
-          text: 'belleza',
+          text: 'hogar',
           icon: 'mdi-view-dashboard',
           url: '/',
           target: 'to'
         },
         {
           id: 3,
+          text: 'belleza',
+          icon: 'mdi-view-dashboard',
+          url: '/',
+          target: 'to'
+        },
+        {
+          id: 4,
           text: 'salud',
           icon: 'mdi-view-dashboard',
           url: '/',
@@ -95,6 +110,9 @@ export const mutations = {
         url: '/'
       }
     ]
+  },
+  setTypeArticle(state,typeArticle) {
+    state.typeArticle=typeArticle
   },
   setLinkMenuDefault(state) {
     state.menu=[
@@ -130,6 +148,9 @@ export const getters = {
   },
   getUser: state => {
     return state.user
+  },
+  getTypeArticle: state => {
+    return state.typeArticle
   }
 }
 
@@ -151,5 +172,8 @@ export const actions = {
   },
   setDefaultState(vuexContext) {
     vuexContext.commit('setDefaultState')
+  },
+  setTypeArticle(vuexContext,typeArticle) {
+    vuexContext.commit('setTypeArticle',typeArticle)
   }
 }

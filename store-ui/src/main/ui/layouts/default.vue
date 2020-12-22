@@ -15,13 +15,13 @@
       </v-tabs>
       <v-tabs-items v-model="menuTab">
         <v-tab-item key="menu">
-          <v-list v-for="category in allLinks" :key="category.id">
+          <v-list v-for="category in allLinks" :key="category.id" >
             <v-list-item :[category.target]="category.url">
               <v-list-item-action>
                 <v-icon>{{ category.icon }}</v-icon>
               </v-list-item-action>
               <v-list-item-content>
-                <v-list-item-title>{{ category.text }}</v-list-item-title>
+                <v-list-item-title @click="me(category.text)">{{ category.text }}</v-list-item-title>
               </v-list-item-content>
             </v-list-item>
           </v-list>
@@ -35,7 +35,7 @@
           <ul>
             <li></li>
             <li v-for="link in links" :key="link.name">
-              <nuxt-link :to="link.url">{{ link.name }}</nuxt-link>
+              <nuxt-link :to="link.url" >{{ link.name }}</nuxt-link>
             </li>
           </ul>
         </nav>
@@ -84,10 +84,11 @@ export default {
   },
   mounted() {},
   methods: {
-    async me() {
+    async me(text) {
       try {
-        var response = await this.$axios.$get('user/me')
-        console.log(response)
+        console.log("###############  MENU ############## "+text)
+        this.$store.dispatch('app/setTypeArticle', text)
+        this.$root.$emit("TypeArticle")
       } catch (e) {
         console.log(e)
       }

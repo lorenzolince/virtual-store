@@ -30,19 +30,7 @@ import CarritoCompra from '~/components/carrito.vue'
 export default {
   components: { producto, CarritoCompra },
   data() {
-    return {
-      infos: []
-    }
-  },
-  async mounted() {
-    try {
-      var response = await this.$axios.$get('articles/get/all')
-      console.log(response)
-      this.infos = response
-     
-    } catch (e) {
-      console.error('SOMETHING WENT WRONG :' + e)
-    }
+    return {}
   }
 }
 </script>
