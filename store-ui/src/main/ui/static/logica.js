@@ -4,13 +4,14 @@ export default {
   },
   add(producto) {
     var busqueda = _.find(this.data.cart, ['id', producto.id])
-    //si no está
+     if(producto.cantidad > 0)
     if (typeof busqueda != 'object') {
       this.data.cart.push({
         id: producto.id,
         name: producto.name,
         precio: producto.precio,
         url: producto.url,
+        cantidad: producto.cantidad,
         qty: 1
       })
     }
@@ -21,7 +22,9 @@ export default {
     if (typeof busqueda == 'object') {
       //si está en el carrito dame el indice en la posición del array
       var index = _.indexOf(this.data.cart, busqueda)
+      if(this.data.cart[index].cantidad > this.data.cart[index].qty){
       this.data.cart[index].qty++
+      }
     }
   },
   dec(producto) {

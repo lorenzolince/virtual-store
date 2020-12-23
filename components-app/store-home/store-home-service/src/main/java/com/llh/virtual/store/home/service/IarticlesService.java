@@ -23,4 +23,6 @@ public interface IarticlesService {
     public List<ArticlesDto> getAll();
     
     public List<ArticlesDto> getByCategory(String category);
+    
+     public void delete(Long id);
 }

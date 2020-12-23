@@ -40,14 +40,20 @@ public class ArticlesController {
         articlesService.save(article);
     }
 
+    @PostMapping("/delete")
+    public void delete(@RequestParam(name = "id", required = true) long id) {
+        articlesService.delete(id);
+    }
+
     @PostMapping("/save/file")
     public void saveMultiPart(@RequestParam(name = "name") String name,
             @RequestParam(name = "url") String url,
             @RequestParam(name = "description") String description,
             @RequestParam(name = "video", required = false) String video,
-            @RequestParam(name = "precio", required = false) double precio,
-            @RequestParam(name = "precioReal", required = false) double precioReal,
-            @RequestParam(name = "categoria", required = false) String categoria,
+            @RequestParam(name = "precio", required = true) double precio,
+            @RequestParam(name = "precioReal", required = true) double precioReal,
+            @RequestParam(name = "categoria", required = true) String categoria,
+            @RequestParam(name = "cantidad", required = true) int cantidad,
             @ModelAttribute MultipartFile file) {
         ArticlesDto article = new ArticlesDto()
                 .setName(name)
@@ -56,7 +62,8 @@ public class ArticlesController {
                 .setVideo(video)
                 .setPrecio(precio)
                 .setPrecioReal(precioReal)
-                .setCategoria(categoria);
+                .setCategoria(categoria)
+                .setCantidad(cantidad);
         LOGGER.info(article
                 .toString());
         saveFile(file);
@@ -77,8 +84,8 @@ public class ArticlesController {
     public List<ArticlesDto> getAll() {
         return articlesService.getAll();
     }
-    
-      @GetMapping("/get/byCategory")
+
+    @GetMapping("/get/byCategory")
     public List<ArticlesDto> getByCategory(@RequestParam(name = "category", required = true) String category) {
         return articlesService.getByCategory(category);
     }

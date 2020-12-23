@@ -1,198 +1,186 @@
-<!-- pages/pet/new.vue -->
-
 <template>
-  <div v-if="islogin" class="container">
+  <div class="container">
     <br />
-    <h1 class="title has-text-centered">{{ info.name }}</h1>
-    <div class="columns is-multiline">
-      <div class="column is-half">
-        <form @submit.prevent="uploadArticle">
-          <div class="field">
-            <label class="label">Name</label>
-            <div class="control">
-              <input
-                v-model="info.name"
-                class="input"
-                type="text"
-              />
-            </div>
-          </div>
-          <div class="field">
-            <label class="label">Url</label>
-            <div class="control">
-              <input
-                v-model="info.url"
-                class="input"
-                type="text"
-              />
-            </div>
-          </div>
-          <div class="field">
-            <label class="label">Video</label>
-            <div class="control">
-              <input
-                v-model="info.video"
-                class="input"
-                type="text"
-              />
-            </div>
-          </div>
-
-          <div class="field">
-            <label class="label">Description</label>
-            <div class="control">
-              <textarea
-                v-model="info.description"
-                class="textarea"
-              ></textarea>
-            </div>
-          </div>
-          <div class="field">
-            <label class="label">Precio</label>
-            <div class="control">
-              <input
-                v-model="info.precio"
-                class="input"
-                type="text"
-              />
-            </div>
-          </div>
-            <div class="field">
-            <label class="label">Precio real</label>
-            <div class="control">
-              <input
-                v-model="info.precioReal"
-                class="input"
-                type="text"
-              />
-            </div>
-          </div>
-          <div class="field">
-            <div class="control">
-              <v-select
-                v-model="info.categoria"
-                :items="allLinks"
-                label="Categoria"
-              ></v-select>
-            </div>
-          </div>
-
-          <div class="file">
-            <label class="file-label">
-              <input
-                class="file-input"
-                type="file"
-                name="resume"
-                @change="onFileChange"
-              />
-              <span class="file-cta">
-                <span class="file-icon">
-                  <i class="fas fa-upload"></i>
-                </span>
-                <span class="file-label">Upload a articles image…</span>
-              </span>
-            </label>
-          </div>
-          <br />
-
-          <div class="field is-grouped">
-            <div class="control">
-              <button class="button is-link">Submit</button>
-            </div>
-          </div>
-        </form>
+    <section class="hero is-medium is-dark is-bold">
+      <div class="container">
+        <h1 class="title">Articles</h1>
       </div>
+    </section>
 
-      <div class="column is-half">
-        <figure v-if="preview" class="image container is-256x256">
-          <img
-            style="
-              border-radius: 10px;
-              box-shadow: 0 1rem 1rem rgba(0, 0, 0, 0.7);
-            "
-            :src="preview"
-            alt
-          />
-        </figure>
-        <figure v-else class="image container is-256x256">
-          <img
-            style="
-              border-radius: 10px;
-              box-shadow: 0 1rem 1rem rgba(0, 0, 0, 0.7);
-            "
-            src="https://via.placeholder.com/150"
-          />
-        </figure>
-      </div>
-    </div>
+    <v-data-table
+      :headers="headers"
+      :items="articles"
+      item-key="id"
+      class="elevation-1"
+      :search="search"
+      :custom-filter="filterOnlyCapsText"
+    >
+      <template v-slot:top>
+        <v-toolbar flat>
+          <v-dialog v-model="dialog" max-width="500px">
+            <v-card>
+              <v-card-title>
+                <span class="headline">{{ formTitle }} {{ article.name }}</span>
+              </v-card-title>
+              <v-card-text>
+                <v-container>
+                  <v-row>
+                    <v-col cols="4" sm="6" md="4">
+                      <v-text-field
+                        v-model="article.name"
+                        label="name"
+                      ></v-text-field>
+                    </v-col>
+                    <v-col cols="4" sm="6" md="4">
+                      <v-text-field
+                        v-model="article.description"
+                        label="description"
+                      ></v-text-field>
+                    </v-col>
+                    <v-col cols="4" sm="6" md="4">
+                      <v-text-field
+                        v-model="article.precio"
+                        label="precio"
+                      ></v-text-field>
+                    </v-col>
+                  </v-row>
+                  <v-row>
+                    <v-col cols="4" sm="6" md="4">
+                      <v-text-field
+                        v-model="article.precioReal"
+                        label="precio_real"
+                      ></v-text-field>
+                    </v-col>
+                    <v-col cols="4" sm="6" md="4">
+                      <v-select
+                        v-model="article.categoria"
+                        :items="categorias"
+                        label="categoria"
+                      ></v-select>
+                    </v-col>
+                    <v-col cols="4" sm="6" md="4">
+                      <v-text-field
+                        v-model="article.cantidad"
+                        label="cantidad"
+                      ></v-text-field>
+                    </v-col>
+                  </v-row>
+                </v-container>
+              </v-card-text>
+              <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn color="blue darken-1" text @click="close">
+                  Cancel
+                </v-btn>
+                <v-btn color="blue darken-1" text @click="save"> Save </v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-dialog>
+        </v-toolbar>
+        <v-text-field
+          v-model="search"
+          label="Search (UPPER CASE ONLY)"
+          class="mx-4"
+        >
+        </v-text-field>
+      </template>
+      <template v-slot:[`item.actions`]="{ item }">
+        <v-icon small class="mr-2" @click="editItem(item)"> mdi-pencil </v-icon>
+        <v-icon small class="mr-2" @click="deleteArticle(item.id)"
+          >mdi-delete
+        </v-icon>
+        <nuxt-link :to="`/article/`"
+          ><v-icon>mdi-plus-circle </v-icon>
+        </nuxt-link>
+      </template>
+    </v-data-table>
   </div>
 </template>
-
 <script>
-import { mapState, mapGetters } from 'vuex'
 export default {
   data() {
     return {
-      info: {
-        name: '',
-        description: '',
-        precio: null,
-        precioReal: null,
-        categoria: null,
-        url: '',
-        video: null,
-        file: ''
-      },
-      preview: ''
-    }
-  },
-  head() {
-    return {
-      title: 'Articles'
-    }
+      search: "",
+      cantidad: "",
+      formTitle: "Actualizar ",
+      articles: [],
+      categorias: ["hogar","belleza","salud"],
+      article: {},
+      dialog: false,
+    };
   },
   computed: {
-    ...mapState({
-      allLinks: state => state.app.allLinks,
-      islogin: state => state.app.islogin
-    })
+    headers() {
+      return [
+        { text: "id", value: "id" },
+        {
+          name: "name",
+          align: "start",
+          sortable: false,
+          value: "comprador",
+        },
+
+        { text: "description", value: "description" },
+        { text: "precio", value: "precio" },
+        { text: "precio_real", value: "precioReal" },
+        { text: "categoria", value: "categoria" },
+        {
+          text: "cantidad",
+          value: "cantidad",
+          filter: (value) => {
+            if (!this.cantidad) return true;
+
+            return value < parseInt(this.cantidad);
+          },
+        },
+        { text: "Actions", value: "actions", sortable: false },
+      ];
+    },
+  },
+  async mounted() {
+    try {
+      var response = await this.$axios.$get("articles/get/all");
+      console.log(response);
+      this.articles = response;
+    } catch (e) {
+      console.error("SOMETHING WENT WRONG :" + e);
+    }
   },
   methods: {
-    onFileChange(e) {
-      let files = e.target.files || e.dataTransfer.files
-      if (!files.length) {
-        return
-      }
-      this.info.file = files[0]
-      this.info.url = process.env.urlServer + 'images/' + this.info.file.name
-      this.createImage(files[0])
+    filterOnlyCapsText(value, search, item) {
+      return (
+        value != null &&
+        search != null &&
+        typeof value === "string" &&
+        value.toString().toLocaleUpperCase().indexOf(search) !== -1
+      );
     },
-    createImage(file) {
-      let reader = new FileReader()
-      let vm = this
-      reader.onload = e => {
-        vm.preview = e.target.result
-      }
-      reader.readAsDataURL(file)
+    close() {
+      this.dialog = false;
     },
-    async uploadArticle() {
-      let formData = new FormData()
-
-      for (let data in this.info) {
-        let result = this.info[data]
-        if (result != null) {
-          console.log(result)
-          formData.append(data, result)
-        }
-      }
-
-      try {
-        var response = await this.$axios.post('articles/save/file', formData)
-        this.$router.push('/')
-      } catch (e) {
-        console.error(e)
-      }
+    editItem(item) {
+      console.log(item);
+      this.article = item;
+      this.dialog = true;
+    },
+    async save() {
+      console.log(this.article);
+      var response = await this.$axios.$post("articles/save",this.article);
+      console.log(response);
+      this.close();
+      this.refresh()
+    },
+     async deleteArticle(id) {
+      console.log(id);
+       var response = await this.$axios.$post("articles/delete?id="+id);
+       console.log(response);
+       this.refresh()
+    }, 
+    async refresh(){
+     var response = await this.$axios.$get("articles/get/all");
+      console.log(response);
+      this.articles = response;
     }
-  }
-}
+  },
+};
 </script>

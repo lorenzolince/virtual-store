@@ -36,6 +36,7 @@ public class ArticlesService implements IarticlesService {
         article.setPrecio(articles.getPrecio());
         article.setPrecioReal(articles.getPrecioReal());
         article.setCategoria(articles.getCategoria());
+        article.setCantidad(articles.getCantidad());
         articlesRepository.save(article);
     }
 
@@ -52,6 +53,7 @@ public class ArticlesService implements IarticlesService {
             article.setPrecio(arti.getPrecio());
             article.setPrecioReal(arti.getPrecioReal());
             article.setCategoria(arti.getCategoria());
+            article.setCantidad(arti.getCantidad());
             listArticle.add(article);
         });
         articlesRepository.saveAll(listArticle);
@@ -68,7 +70,8 @@ public class ArticlesService implements IarticlesService {
                 .setDescription(article.getDescription())
                 .setPrecio(article.getPrecio())
                 .setPrecioReal(article.getPrecioReal())
-                .setCategoria(article.getCategoria());
+                .setCategoria(article.getCategoria())
+                .setCantidad(article.getCantidad());
     }
 
     @Override
@@ -83,13 +86,14 @@ public class ArticlesService implements IarticlesService {
                         .setDescription(article.getDescription())
                         .setPrecio(article.getPrecio())
                         .setPrecioReal(article.getPrecioReal())
-                        .setCategoria(article.getCategoria()))
+                        .setCategoria(article.getCategoria())
+                        .setCantidad(article.getCantidad()))
                 .collect(Collectors.toList());
     }
 
     @Override
     public List<ArticlesDto> getByCategory(String category) {
-       return articlesRepository.findByCategoria(category)
+        return articlesRepository.findByCategoria(category)
                 .stream()
                 .map(article -> new ArticlesDto()
                         .setId(article.getId())
@@ -98,8 +102,14 @@ public class ArticlesService implements IarticlesService {
                         .setVideo(article.getVideo())
                         .setDescription(article.getDescription())
                         .setPrecio(article.getPrecio())
-                        .setCategoria(article.getCategoria()))
+                        .setCategoria(article.getCategoria())
+                        .setCantidad(article.getCantidad()))
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public void delete(Long id) {
+        articlesRepository.deleteById(id);
     }
 
 }

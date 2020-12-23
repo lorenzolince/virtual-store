@@ -52,9 +52,8 @@
       <v-row justify="end">
         <v-col class="text-right pr-2" cols="1">
           <a href="https://www.linkedin.com/in/lorenzo-lince" target="_blank"
-            >&copy; Lorenzo Lince</a
+            >&copy;Llince</a
           >
-          <button class="button is-dark" @click="me">me</button>
         </v-col>
       </v-row>
     </footer>

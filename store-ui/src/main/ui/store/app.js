@@ -122,7 +122,7 @@ export const mutations = {
       },
       {
         name: 'articles',
-        url: '/Articles'
+        url: '/articles'
       }
       ,
       {

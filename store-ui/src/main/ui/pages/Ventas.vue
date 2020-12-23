@@ -29,7 +29,7 @@
                       <v-select
                         v-model="estado"
                         :items="itemsEstado"
-                        label="Standard"
+                        label="Estado"
                       ></v-select>
                     </v-col>
                   </v-row>
@@ -107,10 +107,10 @@ export default {
   async mounted() {
     try {
       var response = await this.$axios.$get("ventas/get/ventas");
-      console.log(response);
       this.ventas = response;
       response = await this.$axios.$get("ventas/get/estados");
       this.itemsEstado = response;
+      console.log(response);
     } catch (e) {
       console.error("SOMETHING WENT WRONG :" + e);
     }

@@ -42,6 +42,8 @@ public class Articles {
     private String categoria;
     @Column(name = "precio_real")
     private double precioReal;
+    @Column(name = "cantidad")
+    private int cantidad;
 
     public Long getId() {
         return id;
@@ -105,6 +107,14 @@ public class Articles {
 
     public void setPrecioReal(double precioReal) {
         this.precioReal = precioReal;
+    }
+
+    public int getCantidad() {
+        return cantidad;
+    }
+
+    public void setCantidad(int cantidad) {
+        this.cantidad = cantidad;
     }
 
 }

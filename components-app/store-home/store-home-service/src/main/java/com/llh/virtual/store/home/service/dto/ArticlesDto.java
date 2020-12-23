@@ -22,6 +22,7 @@ public class ArticlesDto implements Serializable {
     private double precio;
     private String categoria;
     private double precioReal;
+    private int cantidad;
 
     public Long getId() {
         return id;
@@ -95,9 +96,15 @@ public class ArticlesDto implements Serializable {
         return this;
     }
 
-    @Override
-    public String toString() {
-        return "ArticlesDto{" + "id=" + id + ", name=" + name + ", url=" + url + ", video=" + video + ", description=" + description + ", precio=" + precio + ", categoria=" + categoria + '}';
+    public int getCantidad() {
+        return cantidad;
     }
+
+    public ArticlesDto setCantidad(int cantidad) {
+        this.cantidad = cantidad;
+        return this;
+    }
+
+  
 
 }

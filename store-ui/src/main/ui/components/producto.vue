@@ -5,7 +5,7 @@
     <div v-for="(info, index) in infos" :key="info.id" class="column is-4">
       <div class="card">
         <header class="card-header">
-          <p class="card-header-title is-centered">{{ info.name }}</p>
+          <p class="card-header-title is-centered">{{ info.cantidad }} {{ info.name }}</p>
         </header>
         <div class="card-content">
           <figure class="image is-3by2">

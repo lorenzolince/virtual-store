@@ -27,6 +27,9 @@
             <column name="categoria" type="VARCHAR(50)" >
                 <constraints nullable="false"/>
             </column>
+             <column name="cantidad" type="int" >
+                <constraints nullable="false"/>
+            </column>
         </createTable>
     </changeSet>
 </databaseChangeLog>
