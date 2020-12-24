@@ -3,7 +3,7 @@
 <template>
   <div class="container ">
     <div class="card" align="center" justify="center">
-     <div class="col-md-6" >
+     <div class="col-md-4" >
         <header class="card-header">
           <nuxt-link to="/" class="navbar-item is-half">
             <img
