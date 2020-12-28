@@ -102,7 +102,7 @@
               border-radius: 10px;
               box-shadow: 0 1rem 1rem rgba(0, 0, 0, 0.7);
             "
-            src="https://via.placeholder.com/150"
+            src="/store/img/150.png"
           />
         </figure>
       </div>

@@ -83,15 +83,15 @@
           class="mx-4"
         >
         </v-text-field>
+           <nuxt-link :to="`/article/`"
+          ><v-icon>mdi-plus-circle </v-icon>
+        </nuxt-link>
       </template>
       <template v-slot:[`item.actions`]="{ item }">
         <v-icon small class="mr-2" @click="editItem(item)"> mdi-pencil </v-icon>
         <v-icon small class="mr-2" @click="deleteArticle(item.id)"
           >mdi-delete
         </v-icon>
-        <nuxt-link :to="`/article/`"
-          ><v-icon>mdi-plus-circle </v-icon>
-        </nuxt-link>
       </template>
     </v-data-table>
   </div>
