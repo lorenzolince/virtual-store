@@ -1,16 +1,15 @@
 import colors from 'vuetify/es5/util/colors'
 export default {
     mode: 'spa',
-    generate: {
-    dir: 'dist/static'
-  },
-
   router: {
     base: '/store', 
   }, 
 
-    env: {
-    urlServer: process.env.SERVER_HOST+'/store/'
+  publicRuntimeConfig: {
+    urlServer: process.env.SERVER_HOST,
+    axios: {
+      baseURL: process.env.SERVER_HOST+'/api'
+    }  
   },
 
   head: {
@@ -56,9 +55,6 @@ export default {
     '@nuxtjs/pwa'
   ],
 
-  axios: {
-    baseURL: process.env.SERVER_HOST+'/store/api'
-  },
   
   vuetify: {
     customVariables: ['~/assets/variables.scss'],

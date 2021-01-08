@@ -54,7 +54,7 @@ public class ArticlesController {
             @RequestParam(name = "precioReal", required = true) double precioReal,
             @RequestParam(name = "categoria", required = true) String categoria,
             @RequestParam(name = "cantidad", required = true) int cantidad,
-            @ModelAttribute MultipartFile file) {
+            @ModelAttribute MultipartFile image) {
         ArticlesDto article = new ArticlesDto()
                 .setName(name)
                 .setUrl(url)
@@ -66,7 +66,7 @@ public class ArticlesController {
                 .setCantidad(cantidad);
         LOGGER.info(article
                 .toString());
-        saveFile(file);
+        saveFile(image);
         articlesService.save(article);
     }
 

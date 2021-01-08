@@ -79,7 +79,7 @@ export default {
           console.log(response)
           this.$axios.setHeader('Authorization', response.data.token)
           this.$axios.setToken(response.data.token)
-
+          this.$store.dispatch('app/setToken', response.data.token)
           const result = response.data.roles.filter(
             role => role === 'ROLE_ADMIN'
           ).length
@@ -91,7 +91,6 @@ export default {
           this.$store.dispatch('app/setLogin', true)
           this.$store.dispatch('app/setRole', response.data.roles)
           this.$store.dispatch('app/setUser', response.data.user)
-          this.$root.$emit("user_name")
           this.$router.push('/')
         }
       } catch (e) {

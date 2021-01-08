@@ -1,14 +1,17 @@
 import Vuex from 'vuex'
+import axios from 'axios'
 
 export const state = () => ({
   islogin: false,
   role: [],
   typeArticle: 'all',
+  token:null,
   user: {
     username: null,
     nombre: null,
     celular: null,
-    direccion: null
+    direccion: null,
+    Avatar:null
   },
   allLinks: [
     {
@@ -60,7 +63,8 @@ export const mutations = {
         username: null,
         nombre: null,
         celular: null,
-        direccion: null
+        direccion: null,
+        Avatar:null
       }
       state.allLinks= [
         {
@@ -138,8 +142,12 @@ export const mutations = {
     state.role = role
   },
   setUser(state, user) {
+    user.Avatar=user.nombre.substr(0, 2).toUpperCase()
     state.user = user
+  }, setToken(state, token) {
+    state.token = token
   }
+  
 }
 
 export const getters = {
@@ -166,6 +174,9 @@ export const actions = {
   },
   setUser(vuexContext, user) {
     vuexContext.commit('setUser', user)
+  },  
+  setToken(vuexContext, token) {
+    vuexContext.commit('setToken', token)
   },
   setLinkMenuDefault(vuexContext) {
     vuexContext.commit('setLinkMenuDefault')

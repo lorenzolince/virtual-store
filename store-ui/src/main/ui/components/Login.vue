@@ -1,10 +1,10 @@
 <template>
-  <div class="mapsSheet" v-show="isShowSing">
+  <div class="mapsSheet" v-show="islogin">
     <div>
       <span id="userId" style="font-weight: bold" hidden></span> &nbsp;&nbsp;
       <a id="sign-out" class="action" hidden>Sign Out</a>
       <v-progress-circular
-        v-show="isShowLoading"
+        v-show="!islogin"
         :size="50"
         indeterminate
         color="primary"
@@ -12,7 +12,7 @@
       <v-menu offset-y>
         <template v-slot:activator="{ on }">
           <v-btn
-            v-show="!isShowLoading"
+            v-show="islogin"
             id="btnUserIcon"
             color="primary"
             class="headline"
@@ -20,7 +20,7 @@
             dark
             v-on="on"
           >
-            {{ vAvatar }}
+            {{ user.Avatar}}
           </v-btn>
         </template>
         <v-list>
@@ -38,25 +38,17 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters ,mapState} from "vuex";
 export default {
   data() {
-    return {
-      vAvatar: "",
-      isShowLoading: false,
-      isShowSing: false,
-    };
-  },
-  mounted() {
-    this.$root.$on("user_name", () => {
-      var cutName = this.user.nombre.substr(0, 2);
-      this.vAvatar = cutName.toUpperCase();
-      this.isShowSing = true;
-    });
+    return { };
   },
   computed: {
     ...mapGetters({
       user: "app/getUser",
+    }),
+       ...mapState({
+      islogin: (state) => state.app.islogin,
     }),
   },
   methods: {
@@ -65,9 +57,8 @@ export default {
       var response = await this.$axios.$get("auth/logout");
       this.$store.dispatch("app/setDefaultState");
       this.vAvatar = "";
-      this.isShowLoading = false;
-      this.isShowSing = false;
       this.$root.$emit("removeLogica");
+      this.$store.dispatch('app/setToken', null)
       this.$router.push("/");
     },
     showLoading() {

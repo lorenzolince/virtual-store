@@ -111,7 +111,7 @@
 </template>
 
 <script>
-import { mapState, mapGetters } from "vuex";
+import { mapState, mapGetters ,$config } from "vuex";
 export default {
   data() {
     return {
@@ -124,7 +124,7 @@ export default {
         cantidad: null,
         url: "",
         video: null,
-        file: "",
+        image: "",
       },
       preview: "",
     };
@@ -146,8 +146,8 @@ export default {
       if (!files.length) {
         return;
       }
-      this.info.file = files[0];
-      this.info.url = process.env.urlServer + "images/" + this.info.file.name;
+      this.info.image = files[0];
+      this.info.url = `${this.$config.urlServer}/images/` + this.info.image.name;
       this.createImage(files[0]);
     },
     createImage(file) {

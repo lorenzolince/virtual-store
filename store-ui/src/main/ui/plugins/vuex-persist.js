@@ -7,6 +7,6 @@ https://github.com/championswimmer/vuex-persist <---- check documentations
 */
 export default ({ store }) => {
   new VuexPersistence({
-    modules: ['user']
+    modules: ['app']
   }).plugin(store)
 }

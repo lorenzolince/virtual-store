@@ -43,11 +43,11 @@
       <v-spacer />
       <Login />
     </v-app-bar>
-    <v-content>
+    <v-main>
       <v-container fill-height fluid>
         <nuxt />
       </v-container>
-    </v-content>
+    </v-main>
     <footer class="footer home-footer has-background-black">
       <v-row justify="end">
         <v-col class="text-right pr-2" cols="1">
@@ -69,19 +69,24 @@ export default {
     return {
       drawer: false,
       miniVariant: false,
-      clipped: false
+      clipped: false,
+      menuTab:false
     }
   },
   computed: {
     ...mapState({
       allLinks: state => state.app.allLinks,
-      links: state => state.app.menu
+      links: state => state.app.menu,
+      token: state => state.app.token
     }),
     ...mapGetters({
       menuCategorys: 'app/getDefaultExternalLink'
     })
   },
-  mounted() {},
+  mounted() {
+ this.$axios.setHeader('Authorization', this.token)
+ this.$axios.setToken(this.token)
+  },
   methods: {
     async me(text) {
       try {

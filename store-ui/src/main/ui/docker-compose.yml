@@ -5,9 +5,12 @@ services:
     container_name: store-app
     hostname: store-app
     ports:
-     - "8084:8080"
+     - "3000:3000"
     environment:
-      - SERVER_HOST=http://${COMPUTERNAME}:8080
+      - SERVER_HOST=http://localhost:8080/store
+      - NODE_ENV= production
+      - HOST=0.0.0.0
+      
 
 
 
