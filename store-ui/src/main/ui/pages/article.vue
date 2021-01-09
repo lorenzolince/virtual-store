@@ -3,115 +3,130 @@
 <template>
   <div v-if="islogin" class="container">
     <br />
-    <h1 class="title has-text-centered">{{ info.name.toUpperCase() }}</h1>
-    <div class="columns is-multiline">
-      <div class="column is-half">
-        <form @submit.prevent="uploadArticle">
-          <div class="field">
-            <label class="label">Name</label>
-            <div class="control">
-              <input v-model="info.name" class="input" type="text" />
-            </div>
-          </div>
-          <div class="field">
-            <label class="label">Url</label>
-            <div class="control">
-              <input v-model="info.url" class="input" type="text" />
-            </div>
-          </div>
-          <div class="field">
-            <label class="label">Video</label>
-            <div class="control">
-              <input v-model="info.video" class="input" type="text" />
-            </div>
-          </div>
-         <div class="field">
-            <label class="label">Description</label>
-            <div class="control">
-              <textarea v-model="info.description" class="textarea"></textarea>
-            </div>
-          </div>
-            <div class="field">
-            <label class="label">cantidad</label>
-            <div class="control">
-              <input v-model="info.cantidad" class="input" type="text" />
-            </div>
-          </div>
-          <div class="field">
-            <label class="label">Precio</label>
-            <div class="control">
-              <input v-model="info.precio" class="input" type="text" />
-            </div>
-          </div>
-          <div class="field">
-            <label class="label">Precio real</label>
-            <div class="control">
-              <input v-model="info.precioReal" class="input" type="text" />
-            </div>
-          </div>
-          <div class="field">
-            <div class="control">
-              <v-select
-                v-model="info.categoria"
-                :items="allLinks.filter(c => c.text != 'all')"
-                label="Categoria"
-              ></v-select>
-            </div>
-          </div>
+    <h1 class="title has-text-centered">Rigistrar Articulo</h1>
 
-          <div class="file">
-            <label class="file-label">
-              <input
-                class="file-input"
-                type="file"
-                name="resume"
-                @change="onFileChange"
-              />
-              <span class="file-cta">
-                <span class="file-icon">
-                  <i class="fas fa-upload"></i>
+    <form @submit.prevent="uploadArticle">
+      <v-row>
+        <v-col cols="12" md="6">
+          <v-row>
+            <v-col cols="4" md="4">
+              <label class="label">Name</label>
+              <div class="control">
+                <input v-model="info.name" class="input" type="text" />
+              </div>
+            </v-col>
+            <v-col cols="4" md="4">
+              <label class="label">Url</label>
+              <div class="control">
+                <input v-model="info.url" class="input" type="text" />
+              </div>
+            </v-col>
+            <v-col cols="4" md="4">
+              <label class="label">Video</label>
+              <div class="control">
+                <input v-model="info.video" class="input" type="text" />
+              </div>
+            </v-col>
+          </v-row>
+          <v-row>
+            <v-col cols="4" md="3">
+              <label class="label">cantidad</label>
+              <div class="control">
+                <input v-model="info.cantidad" class="input" type="text" />
+              </div>
+            </v-col>
+            <v-col cols="4" md="3">
+              <label class="label">Precio</label>
+              <div class="control">
+                <input v-model="info.precio" class="input" type="text" />
+              </div>
+            </v-col>
+            <v-col cols="4" md="6">
+              <label class="label">Description</label>
+              <div class="control">
+                <textarea
+                  v-model="info.description"
+                  class="textarea"
+                ></textarea>
+              </div>
+            </v-col>
+          </v-row>
+          <v-row>
+            <v-col cols="4" md="3">
+              <label class="label">Precio real</label>
+              <div class="control">
+                <input v-model="info.precioReal" class="input" type="text" />
+              </div>
+            </v-col>
+            <v-col cols="4" md="3">
+              <br />
+              <div class="control">
+                <v-select
+                  v-model="info.categoria"
+                  :items="allLinks.filter((c) => c.text != 'all')"
+                  label="Categoria"
+                ></v-select>
+              </div>
+            </v-col>
+            <v-col cols="4" md="6">
+              <br />
+              <br />
+              <label class="file-label">
+                <input
+                  class="file-input"
+                  type="file"
+                  name="resume"
+                  @change="onFileChange"
+                />
+                <span class="file-cta">
+                  <span class="file-icon">
+                    <i class="fas fa-upload"></i>
+                  </span>
+                  <span class="file-label">Upload a articles image…</span>
                 </span>
-                <span class="file-label">Upload a articles image…</span>
-              </span>
-            </label>
-          </div>
-          <br />
-
-          <div class="field is-grouped">
-            <div class="control">
-              <button class="button is-link">Submit</button>
-            </div>
-          </div>
-        </form>
-      </div>
-
-      <div class="column is-half">
-        <figure v-if="preview" class="image container is-256x256">
-          <img
-            style="
-              border-radius: 10px;
-              box-shadow: 0 1rem 1rem rgba(0, 0, 0, 0.7);
-            "
-            :src="preview"
-            alt
-          />
-        </figure>
-        <figure v-else class="image container is-256x256">
-          <img
-            style="
-              border-radius: 10px;
-              box-shadow: 0 1rem 1rem rgba(0, 0, 0, 0.7);
-            "
-            src="/store/img/150.png"
-          />
-        </figure>
-      </div>
-    </div>
+              </label>
+            </v-col>
+          </v-row>
+          <v-row>
+            <v-col cols="3" md="2">
+              <div class="control">
+                <button class="button is-link">Submit</button>
+              </div>
+            </v-col>
+          </v-row>
+        </v-col>
+        <v-col cols="12" md="6">
+          <v-row>
+            <v-col cols="12" md="12">
+              <figure v-if="preview" class="image container is-256x256">
+                <img
+                  style="
+                    border-radius: 10px;
+                    box-shadow: 0 1rem 1rem rgba(0, 0, 0, 0.7);
+                  "
+                  :src="preview"
+                  alt
+                />
+              </figure>
+              <figure v-else class="image container is-256x256">
+                <img
+                  style="
+                    border-radius: 10px;
+                    box-shadow: 0 1rem 1rem rgba(0, 0, 0, 0.7);
+                  "
+                  src="/mj/img/150.png"
+                />
+              </figure>
+            </v-col>
+          </v-row>
+        </v-col>
+      </v-row>
+    </form>
   </div>
 </template>
 
 <script>
-import { mapState, mapGetters ,$config } from "vuex";
+import { mapState, mapGetters, $config } from "vuex";
 export default {
   data() {
     return {
@@ -147,7 +162,8 @@ export default {
         return;
       }
       this.info.image = files[0];
-      this.info.url = `${this.$config.urlServer}/images/` + this.info.image.name;
+      this.info.url =
+        `${this.$config.urlServer}/images/` + this.info.image.name;
       this.createImage(files[0]);
     },
     createImage(file) {

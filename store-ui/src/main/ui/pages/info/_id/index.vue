@@ -1,16 +1,11 @@
-<!-- ./pages/info/_id/index.vue -->
 
 <template>
-  <div class="container ">
+  <div class="container">
     <div class="card" align="center" justify="center">
-     <div class="col-md-4" >
+      <div class="col-md-4">
         <header class="card-header">
           <nuxt-link to="/" class="navbar-item is-half">
-            <img
-              src="https://assets.dryicons.com/uploads/icon/svg/12647/610ab76e-1af7-4da0-a938-5261e80a436f.svg"
-              width="25"
-              height="25"
-            />
+            <img src="/mj/return.svg" width="25" height="25" />
           </nuxt-link>
 
           <p class="card-header-title is-left">{{ info.name }}</p>
@@ -67,5 +62,4 @@ export default {
 };
 </script>
 <style>
-
 </style>

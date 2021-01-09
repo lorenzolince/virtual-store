@@ -10,12 +10,33 @@
       fixed
       app
     >
+      <v-img
+        src="/mj/logo.jpg"
+        aspect-ratio="1"
+        max-height="75"
+        max-width="200"
+        position="center center"
+        contain
+        class="ma-2"
+      ></v-img>
+      <div class="autocomplete">
+        <v-autocomplete
+          v-if="allLinks"
+          :key="$route.fullPath"
+          v-model="autoCompleteLayout"
+          :items="allLinks"
+          dense
+          filled
+          label="Categorias"
+          @change="gotoChild"
+        ></v-autocomplete>
+      </div>
       <v-tabs v-model="menuTab" background-color="dark" dark grow>
         <v-tab key="menu">Menu</v-tab>
       </v-tabs>
       <v-tabs-items v-model="menuTab">
         <v-tab-item key="menu">
-          <v-list v-for="category in allLinks" :key="category.id" >
+          <v-list v-for="category in links" :key="category.id" >
             <v-list-item :[category.target]="category.url">
               <v-list-item-action>
                 <v-icon>{{ category.icon }}</v-icon>
@@ -30,16 +51,8 @@
     </v-navigation-drawer>
     <v-app-bar :clipped-left="clipped" fixed app>
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
-      <v-toolbar-title class="d-none d-sm-flex">
-        <nav class="customNav">
-          <ul>
-            <li></li>
-            <li v-for="link in links" :key="link.name">
-              <nuxt-link :to="link.url" >{{ link.name }}</nuxt-link>
-            </li>
-          </ul>
-        </nav>
-      </v-toolbar-title>
+      <v-toolbar-title class="d-flex d-sm-none" v-text="titleXs" />
+      <v-toolbar-title class="d-none d-sm-flex" v-text="title" />
       <v-spacer />
       <Login />
     </v-app-bar>
@@ -70,7 +83,9 @@ export default {
       drawer: false,
       miniVariant: false,
       clipped: false,
-      menuTab:false
+      menuTab:false,
+      titleXs: 'MJ',
+      title: 'MJ markets.pty',
     }
   },
   computed: {
@@ -86,11 +101,11 @@ export default {
   mounted() {
  this.$axios.setHeader('Authorization', this.token)
  this.$axios.setToken(this.token)
+ this.$store.dispatch('app/setShowLoading', true)
   },
   methods: {
     async me(text) {
       try {
-        console.log("###############  MENU ############## "+text)
         this.$store.dispatch('app/setTypeArticle', text)
         this.$root.$emit("TypeArticle")
       } catch (e) {

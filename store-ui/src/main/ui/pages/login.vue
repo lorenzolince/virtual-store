@@ -5,7 +5,8 @@
         <div class="card">
           <div class="card-content">
             <div class="column is-4 is-offset-4">
-              <h2 class="title has-text-centered">Welcome back!</h2>
+              <h2 class="title has-text-centered">Welcome MJ markets.pty
+</h2>
               <Notification v-if="error" :message="error" />
               <form method="post" @submit.prevent="login">
                 <div class="field">
@@ -89,6 +90,7 @@ export default {
           this.$store.dispatch('app/setLinkMenu')
           }
           this.$store.dispatch('app/setLogin', true)
+          this.$store.dispatch('app/setShowLoading', true)
           this.$store.dispatch('app/setRole', response.data.roles)
           this.$store.dispatch('app/setUser', response.data.user)
           this.$router.push('/')

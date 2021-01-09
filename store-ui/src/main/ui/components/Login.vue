@@ -1,10 +1,36 @@
 <template>
-  <div class="mapsSheet" v-show="islogin">
-    <div>
+  <div class="mapsSheet" >
+  <div v-show="!islogin">
+      <span id="userId" style="font-weight: bold" hidden></span> &nbsp;&nbsp;
+      <a id="sign-out" class="action" hidden>Sign In</a>
+    <v-menu offset-y>
+        <template v-slot:activator="{ on }">
+          <v-btn
+            v-show="!islogin"
+            id="btnUserIcon"
+            color="primary"
+            fab
+            dark
+            v-on="on"
+          > <h6>Login</h6> 
+          </v-btn>
+        </template>
+        <v-list>
+          <v-list-item>
+            <v-list-item to="/login">
+              <a id="sign-in" class="action"
+                ><v-icon >mdi-close</v-icon> Sign IN</a
+              ></v-list-item
+            >
+          </v-list-item>
+        </v-list>
+      </v-menu>
+    </div>
+    <div v-show="islogin">
       <span id="userId" style="font-weight: bold" hidden></span> &nbsp;&nbsp;
       <a id="sign-out" class="action" hidden>Sign Out</a>
       <v-progress-circular
-        v-show="!islogin"
+        v-show="!isShowLoading"
         :size="50"
         indeterminate
         color="primary"
@@ -12,7 +38,7 @@
       <v-menu offset-y>
         <template v-slot:activator="{ on }">
           <v-btn
-            v-show="islogin"
+            v-show="isShowLoading"
             id="btnUserIcon"
             color="primary"
             class="headline"
@@ -41,7 +67,7 @@
 import { mapGetters ,mapState} from "vuex";
 export default {
   data() {
-    return { };
+    return {};
   },
   computed: {
     ...mapGetters({
@@ -49,6 +75,7 @@ export default {
     }),
        ...mapState({
       islogin: (state) => state.app.islogin,
+      isShowLoading: (state) => state.app.isShowLoading,
     }),
   },
   methods: {
@@ -63,7 +90,7 @@ export default {
     },
     showLoading() {
       console.log("loading ");
-      this.isShowLoading = true;
+     this.$store.dispatch('app/setShowLoading', false)
     },
   },
 };

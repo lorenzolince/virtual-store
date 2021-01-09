@@ -2,7 +2,7 @@ import colors from 'vuetify/es5/util/colors'
 export default {
     mode: 'spa',
   router: {
-    base: '/store', 
+    base: '/mj', 
   }, 
 
   publicRuntimeConfig: {
@@ -13,8 +13,7 @@ export default {
   },
 
   head: {
-    titleTemplate: '%s store',
-    title: 'store',
+    title: 'MJ markets.pty',
    meta: [ 
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
@@ -25,7 +24,7 @@ export default {
       }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
+      { rel: 'icon', type: 'image/x-icon', href: '/mj/logo.jpg' },
       {
         rel: 'stylesheet',
         href: 'https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css'
