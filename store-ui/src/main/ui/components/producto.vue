@@ -1,11 +1,11 @@
-<!-- ./pages/index.vue -->
-
 <template>
   <div class="columns is-multiline">
     <div v-for="(info, index) in infos" :key="info.id" class="column is-4">
       <div class="card">
         <header class="card-header">
-          <p class="card-header-title is-centered">{{ info.cantidad }} {{ info.name }}</p>
+          <p class="card-header-title is-centered">
+            {{ info.cantidad }} {{ info.name }}
+          </p>
         </header>
         <div class="card-content">
           <figure class="image is-3by2">
@@ -33,66 +33,63 @@
 </template>
 
 <script>
-import logica from "~/static/logica";
-import { mapGetters } from "vuex";
+import logica from '~/static/logica'
+import { mapGetters } from 'vuex'
+import _ from 'lodash'
 export default {
   data() {
     return {
       infos: [],
-      shared: logica.data,
-    };
+      shared: logica.data
+    }
   },
   computed: {
     ...mapGetters({
-      typeArticle: "app/getTypeArticle",
+      typeArticle: 'app/getTypeArticle'
     }),
     qtyCart() {
-      var busqueda = _.find(this.shared.cart, ["id", this.infos.id]);
-      if (typeof busqueda == "object") {
-        return busqueda.qty;
+      var busqueda = _.find(this.shared.cart, ['id', this.infos.id])
+      if (typeof busqueda == 'object') {
+        return busqueda.qty
       } else {
-        return 0;
+        return 0
       }
-    },
+    }
   },
   async mounted() {
     try {
-      if (this.typeArticle == "all") {
-        var response = await this.$axios.$get("articles/get/all");
-        this.infos = response;
-      }else {
-          var response = await this.$axios.$get(
-            "articles/get/byCategory?category=" + this.typeArticle
-          );
-          this.infos = response;
-        }
-      this.$root.$on("TypeArticle", async () => {
-        if (this.typeArticle == "all") {
-          var response = await this.$axios.$get("articles/get/all");
-          this.infos = response;
+      if (this.typeArticle == 'all') {
+        this.infos = await this.$axios.$get('articles/get/all')
+      } else {
+        this.infos = await this.$axios.$get(
+          'articles/get/byCategory?category=' + this.typeArticle
+        )
+      }
+      this.$root.$on('TypeArticle', async () => {
+        if (this.typeArticle == 'all') {
+          this.infos = await this.$axios.$get('articles/get/all')
         } else {
-          var response = await this.$axios.$get(
-            "articles/get/byCategory?category=" + this.typeArticle
-          );
-          this.infos = response;
+          this.infos = await this.$axios.$get(
+            'articles/get/byCategory?category=' + this.typeArticle
+          )
         }
-      });
+      })
     } catch (e) {
-      console.error("SOMETHING WENT WRONG :" + e);
+      console.error('SOMETHING WENT WRONG :' + e)
     }
   },
   methods: {
     addToCart(index) {
-      logica.add(this.infos[index]);
+      logica.add(this.infos[index])
     },
     inc(index) {
-      logica.inc(this.infos[index]);
+      logica.inc(this.infos[index])
     },
     dec(index) {
-      logica.dec(this.infos[index]);
-    },
-  },
-};
+      logica.dec(this.infos[index])
+    }
+  }
+}
 </script>
 <style>
 .infos {

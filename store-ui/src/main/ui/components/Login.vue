@@ -1,9 +1,9 @@
 <template>
-  <div class="mapsSheet" >
-  <div v-show="!islogin">
+  <div class="mapsSheet">
+    <div v-show="!islogin">
       <span id="userId" style="font-weight: bold" hidden></span> &nbsp;&nbsp;
       <a id="sign-out" class="action" hidden>Sign In</a>
-    <v-menu offset-y>
+      <v-menu offset-y>
         <template v-slot:activator="{ on }">
           <v-btn
             v-show="!islogin"
@@ -12,14 +12,15 @@
             fab
             dark
             v-on="on"
-          > <h6>Login</h6> 
+          >
+            <h6>Login</h6>
           </v-btn>
         </template>
         <v-list>
           <v-list-item>
             <v-list-item to="/login">
               <a id="sign-in" class="action"
-                ><v-icon >mdi-close</v-icon> Sign IN</a
+                ><v-icon>mdi-close</v-icon> Sign IN</a
               ></v-list-item
             >
           </v-list-item>
@@ -46,7 +47,7 @@
             dark
             v-on="on"
           >
-            {{ user.Avatar}}
+            {{ user.Avatar }}
           </v-btn>
         </template>
         <v-list>
@@ -64,36 +65,36 @@
 </template>
 
 <script>
-import { mapGetters ,mapState} from "vuex";
+import { mapGetters, mapState } from 'vuex'
 export default {
   data() {
-    return {};
+    return {}
   },
   computed: {
     ...mapGetters({
-      user: "app/getUser",
+      user: 'app/getUser'
     }),
-       ...mapState({
-      islogin: (state) => state.app.islogin,
-      isShowLoading: (state) => state.app.isShowLoading,
-    }),
+    ...mapState({
+      islogin: state => state.app.islogin,
+      isShowLoading: state => state.app.isShowLoading
+    })
   },
   methods: {
     async signOutDropdown() {
-      this.showLoading();
-      var response = await this.$axios.$get("auth/logout");
-      this.$store.dispatch("app/setDefaultState");
-      this.vAvatar = "";
-      this.$root.$emit("removeLogica");
+      this.showLoading()
+      var response = await this.$axios.$get('auth/logout')
+      this.$store.dispatch('app/setDefaultState')
+      this.vAvatar = ''
+      this.$root.$emit('removeLogica')
       this.$store.dispatch('app/setToken', null)
-      this.$router.push("/");
+      this.$router.push('/')
     },
     showLoading() {
-      console.log("loading ");
-     this.$store.dispatch('app/setShowLoading', false)
-    },
-  },
-};
+      console.log('loading ')
+      this.$store.dispatch('app/setShowLoading', false)
+    }
+  }
+}
 </script>
 
 <style scoped>

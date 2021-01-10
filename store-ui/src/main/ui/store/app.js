@@ -3,7 +3,7 @@ import axios from 'axios'
 
 export const state = () => ({
   islogin: false,
-  isShowLoading : true,
+  isShowLoading: true,
   role: [],
   typeArticle: 'all',
   token: null,
@@ -66,7 +66,7 @@ export const mutations = {
       direccion: null,
       Avatar: null
     }
-    state.allLinks = [
+    ;(state.allLinks = [
       {
         id: 1,
         text: 'all',
@@ -95,8 +95,8 @@ export const mutations = {
         url: '/',
         target: 'to'
       }
-    ],
-      state.menu = [
+    ]),
+      (state.menu = [
         {
           id: 1,
           text: 'Home',
@@ -104,13 +104,16 @@ export const mutations = {
           url: '/',
           target: 'to'
         }
-      ]
+      ])
   },
   setLinkMenu(state) {
     state.menu = [
       {
-        name: 'home',
-        url: '/'
+        id: 1,
+        text: 'Home',
+        icon: 'mdi-home',
+        url: '/',
+        target: 'to'
       }
     ]
   },
@@ -132,8 +135,7 @@ export const mutations = {
         icon: 'mdi-view-dashboard',
         url: '/articles',
         target: 'to'
-      }
-      ,
+      },
       {
         id: 3,
         text: 'ventas',
@@ -155,10 +157,10 @@ export const mutations = {
   setUser(state, user) {
     user.Avatar = user.nombre.substr(0, 2).toUpperCase()
     state.user = user
-  }, setToken(state, token) {
+  },
+  setToken(state, token) {
     state.token = token
   }
-
 }
 
 export const getters = {

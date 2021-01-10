@@ -1,4 +1,3 @@
-
 <template>
   <div class="container">
     <div class="card" align="center" justify="center">
@@ -46,20 +45,19 @@
 export default {
   data() {
     return {
-      info: [],
-    };
+      info: []
+    }
   },
   async mounted() {
     try {
       var response = await this.$axios.$get(
-        "articles/get?id=" + this.$route.params.id
-      );
-      this.info = response;
+        'articles/get?id=' + this.$route.params.id
+      )
+      this.info = response
     } catch (e) {
-      console.error("SOMETHING WENT WRONG :" + e);
+      console.error('SOMETHING WENT WRONG :' + e)
     }
-  },
-};
+  }
+}
 </script>
-<style>
-</style>
+<style></style>

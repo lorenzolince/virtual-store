@@ -16,64 +16,84 @@
   </div>
 </template>
 <script>
-import logica from "~/static/logica";
-import _ from "lodash";
-import { mapGetters } from "vuex";
+import logica from '~/static/logica'
+import _ from 'lodash'
+import { mapGetters } from 'vuex'
+import Vue from 'vue'
 export default {
   data() {
     return {
       items: logica.data.cart,
-    };
+      SaveSucces: {
+        group: 'notifGroup',
+        type: 'success',
+        title: 'Compra de articulos',
+        text: 'Su compra se guardo con exito'
+      },
+      SaveWar: {
+        group: 'notifGroup',
+        type: 'warning',
+        title: 'Compra de articulos',
+        text: 'Debe iniciar session para poder guardar su compra'
+      }
+    }
   },
   computed: {
     total() {
-      return _.sumBy(this.items, function (it) {
-        return it.precio * it.qty;
-      });
+      return _.sumBy(this.items, function(it) {
+        return it.precio * it.qty
+      })
     },
     ...mapGetters({
-      user: "app/getUser",
-    }),
+      user: 'app/getUser'
+    })
   },
   mounted() {
-    this.$root.$on("removeLogica", () => {
-        logica.remove();
-        this.items = logica.data.cart;
-    });
-   
-  }
-  ,
+    this.$root.$on('removeLogica', () => {
+      logica.remove()
+      this.items = logica.data.cart
+    })
+  },
   methods: {
     async guardar() {
       if (this.user.username == null) {
-        this.$router.push("/login");
-      } else {
+        Vue.notify(this.SaveWar)
+        this.$router.push('/login')
+      } else if (this.total > 0) {
         const venta = {
           celular: this.user.celular,
           direccion: this.user.direccion,
           nombreComprador: this.user.nombre,
           productos: [],
-          status: "PROCESO",
-          total: this.total,
-        };
-        const productos = [];
-        this.items.forEach((item) => {
+          status: 'PROCESO',
+          total: this.total
+        }
+        const productos = []
+        this.items.forEach(item => {
           productos.push({
             cantidad: item.qty,
-            idArticles: item.id,
-          });
-        });
-        venta.productos = productos;
-        console.log(venta);
-        console.log(this.total);
-        var response = await this.$axios.$post("ventas/save", venta);
-        console.log(response);
-        logica.remove();
-        this.items = logica.data.cart;
+            idArticles: item.id
+          })
+        })
+        venta.productos = productos
+        console.log(venta)
+        console.log(this.total)
+        var response = await this.$axios.$post('ventas/save', venta)
+        console.log(response)
+        logica.remove()
+        this.items = logica.data.cart
+        Vue.notify(this.SaveSucces)
+      } else {
+        Vue.notify({
+          group: 'notifGroup',
+          type: 'warning',
+          title: 'Compra de articulos',
+          text: 'Debe seleccionar almenos un articulo'
+        })
       }
-    },
-  },
-};
+    }
+  }
+}
 </script>
 <style>
 img {

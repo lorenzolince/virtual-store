@@ -83,7 +83,7 @@
           class="mx-4"
         >
         </v-text-field>
-           <nuxt-link :to="`/article/`"
+        <nuxt-link :to="`/article/`"
           ><v-icon>mdi-plus-circle </v-icon>
         </nuxt-link>
       </template>
@@ -100,50 +100,50 @@
 export default {
   data() {
     return {
-      search: "",
-      cantidad: "",
-      formTitle: "Actualizar ",
+      search: '',
+      cantidad: '',
+      formTitle: 'Actualizar ',
       articles: [],
-      categorias: ["hogar","belleza","salud"],
+      categorias: ['hogar', 'belleza', 'salud'],
       article: {},
-      dialog: false,
-    };
+      dialog: false
+    }
   },
   computed: {
     headers() {
       return [
-        { text: "id", value: "id" },
+        { text: 'id', value: 'id' },
         {
-          name: "name",
-          align: "start",
+          name: 'name',
+          align: 'start',
           sortable: false,
-          value: "comprador",
+          value: 'comprador'
         },
 
-        { text: "description", value: "description" },
-        { text: "precio", value: "precio" },
-        { text: "precio_real", value: "precioReal" },
-        { text: "categoria", value: "categoria" },
+        { text: 'description', value: 'description' },
+        { text: 'precio', value: 'precio' },
+        { text: 'precio_real', value: 'precioReal' },
+        { text: 'categoria', value: 'categoria' },
         {
-          text: "cantidad",
-          value: "cantidad",
-          filter: (value) => {
-            if (!this.cantidad) return true;
+          text: 'cantidad',
+          value: 'cantidad',
+          filter: value => {
+            if (!this.cantidad) return true
 
-            return value < parseInt(this.cantidad);
-          },
+            return value < parseInt(this.cantidad)
+          }
         },
-        { text: "Actions", value: "actions", sortable: false },
-      ];
-    },
+        { text: 'Actions', value: 'actions', sortable: false }
+      ]
+    }
   },
   async mounted() {
     try {
-      var response = await this.$axios.$get("articles/get/all");
-      console.log(response);
-      this.articles = response;
+      var response = await this.$axios.$get('articles/get/all')
+      console.log(response)
+      this.articles = response
     } catch (e) {
-      console.error("SOMETHING WENT WRONG :" + e);
+      console.error('SOMETHING WENT WRONG :' + e)
     }
   },
   methods: {
@@ -151,36 +151,39 @@ export default {
       return (
         value != null &&
         search != null &&
-        typeof value === "string" &&
-        value.toString().toLocaleUpperCase().indexOf(search) !== -1
-      );
+        typeof value === 'string' &&
+        value
+          .toString()
+          .toLocaleUpperCase()
+          .indexOf(search) !== -1
+      )
     },
     close() {
-      this.dialog = false;
+      this.dialog = false
     },
     editItem(item) {
-      console.log(item);
-      this.article = item;
-      this.dialog = true;
+      console.log(item)
+      this.article = item
+      this.dialog = true
     },
     async save() {
-      console.log(this.article);
-      var response = await this.$axios.$post("articles/save",this.article);
-      console.log(response);
-      this.close();
+      console.log(this.article)
+      var response = await this.$axios.$post('articles/save', this.article)
+      console.log(response)
+      this.close()
       this.refresh()
     },
-     async deleteArticle(id) {
-      console.log(id);
-       var response = await this.$axios.$post("articles/delete?id="+id);
-       console.log(response);
-       this.refresh()
-    }, 
-    async refresh(){
-     var response = await this.$axios.$get("articles/get/all");
-      console.log(response);
-      this.articles = response;
+    async deleteArticle(id) {
+      console.log(id)
+      var response = await this.$axios.$post('articles/delete?id=' + id)
+      console.log(response)
+      this.refresh()
+    },
+    async refresh() {
+      var response = await this.$axios.$get('articles/get/all')
+      console.log(response)
+      this.articles = response
     }
-  },
-};
+  }
+}
 </script>

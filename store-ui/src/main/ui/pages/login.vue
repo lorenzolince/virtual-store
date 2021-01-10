@@ -5,9 +5,8 @@
         <div class="card">
           <div class="card-content">
             <div class="column is-4 is-offset-4">
-              <h2 class="title has-text-centered">Welcome MJ markets.pty
-</h2>
-              <Notification v-if="error" :message="error" />
+              <h2 class="title has-text-centered">Welcome MJ markets.pty</h2>
+              <!-- <Notification v-if="error" :message="error" />-->
               <form method="post" @submit.prevent="login">
                 <div class="field">
                   <label class="label">Email</label>
@@ -86,8 +85,8 @@ export default {
           ).length
           if (result > 0) {
             this.$store.dispatch('app/setLinkMenuDefault')
-          }else {
-          this.$store.dispatch('app/setLinkMenu')
+          } else {
+            this.$store.dispatch('app/setLinkMenu')
           }
           this.$store.dispatch('app/setLogin', true)
           this.$store.dispatch('app/setShowLoading', true)

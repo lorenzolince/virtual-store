@@ -1,5 +1,20 @@
 <template>
   <div class="infos">
+    <notifications group="compraSave" position="top right">
+      <template slot="body" slot-scope="props">
+        <v-alert
+          dismissible
+          close-icon="mdi-delete"
+          border="left"
+          elevation="2"
+          colored-border
+          :type="props.item.type"
+        >
+          <h1>{{ props.item.title }}</h1>
+          <h2>{{ props.item.text }}</h2>
+        </v-alert>
+      </template>
+    </notifications>
     <section class="hero is-medium is-dark is-bold">
       <div class="container">
         <h1 class="title">Tienda Virtual</h1>

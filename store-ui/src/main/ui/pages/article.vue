@@ -63,7 +63,7 @@
               <div class="control">
                 <v-select
                   v-model="info.categoria"
-                  :items="allLinks.filter((c) => c.text != 'all')"
+                  :items="allLinks.filter(c => c.text != 'all')"
                   label="Categoria"
                 ></v-select>
               </div>
@@ -126,72 +126,66 @@
 </template>
 
 <script>
-import { mapState, mapGetters, $config } from "vuex";
+import { mapState, mapGetters, $config } from 'vuex'
 export default {
   data() {
     return {
       info: {
-        name: "",
-        description: "",
+        name: '',
+        description: '',
         precio: null,
         precioReal: null,
         categoria: null,
         cantidad: null,
-        url: "",
+        url: '',
         video: null,
-        image: "",
+        image: ''
       },
-      preview: "",
-    };
-  },
-  head() {
-    return {
-      title: "Articles",
-    };
+      preview: ''
+    }
   },
   computed: {
     ...mapState({
-      allLinks: (state) => state.app.allLinks,
-      islogin: (state) => state.app.islogin,
-    }),
+      allLinks: state => state.app.allLinks,
+      islogin: state => state.app.islogin
+    })
   },
   methods: {
     onFileChange(e) {
-      let files = e.target.files || e.dataTransfer.files;
+      let files = e.target.files || e.dataTransfer.files
       if (!files.length) {
-        return;
+        return
       }
-      this.info.image = files[0];
-      this.info.url =
-        `${this.$config.urlServer}/images/` + this.info.image.name;
-      this.createImage(files[0]);
+      this.info.image = files[0]
+      this.info.url = `${this.$config.urlServer}/images/` + this.info.image.name
+      this.createImage(files[0])
     },
     createImage(file) {
-      let reader = new FileReader();
-      let vm = this;
-      reader.onload = (e) => {
-        vm.preview = e.target.result;
-      };
-      reader.readAsDataURL(file);
+      let reader = new FileReader()
+      let vm = this
+      reader.onload = e => {
+        vm.preview = e.target.result
+      }
+      reader.readAsDataURL(file)
     },
     async uploadArticle() {
-      let formData = new FormData();
+      let formData = new FormData()
 
       for (let data in this.info) {
-        let result = this.info[data];
+        let result = this.info[data]
         if (result != null) {
-          console.log(result);
-          formData.append(data, result);
+          console.log(result)
+          formData.append(data, result)
         }
       }
 
       try {
-        var response = await this.$axios.post("articles/save/file", formData);
-        this.$router.push("/");
+        var response = await this.$axios.post('articles/save/file', formData)
+        this.$router.push('/')
       } catch (e) {
-        console.error(e);
+        console.error(e)
       }
-    },
-  },
-};
+    }
+  }
+}
 </script>

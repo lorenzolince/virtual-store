@@ -65,54 +65,54 @@
 export default {
   data() {
     return {
-      search: "",
-      total_ganancia: "",
-      formTitle: "Actualizar estado de la Venta",
+      search: '',
+      total_ganancia: '',
+      formTitle: 'Actualizar estado de la Venta',
       dialog: false,
       ventas: [],
       itemsEstado: [],
       estado: null,
-      idVenta: null,
-    };
+      idVenta: null
+    }
   },
   computed: {
     headers() {
       return [
-        { text: "id", value: "id" },
+        { text: 'id', value: 'id' },
         {
-          text: "comprador",
-          align: "start",
+          text: 'comprador',
+          align: 'start',
           sortable: false,
-          value: "comprador",
+          value: 'comprador'
         },
 
-        { text: "celular", value: "celular" },
-        { text: "estado", value: "estado" },
-        { text: "direccion", value: "direccion" },
-        { text: "fecha", value: "fecha" },
-        { text: "total_venta", value: "total_venta" },
+        { text: 'celular', value: 'celular' },
+        { text: 'estado', value: 'estado' },
+        { text: 'direccion', value: 'direccion' },
+        { text: 'fecha', value: 'fecha' },
+        { text: 'total_venta', value: 'total_venta' },
         {
-          text: "total_ganancia",
-          value: "total_ganancia",
-          filter: (value) => {
-            if (!this.total_ganancia) return true;
+          text: 'total_ganancia',
+          value: 'total_ganancia',
+          filter: value => {
+            if (!this.total_ganancia) return true
 
-            return value < parseInt(this.total_ganancia);
-          },
+            return value < parseInt(this.total_ganancia)
+          }
         },
-        { text: "Actions", value: "actions", sortable: false },
-      ];
-    },
+        { text: 'Actions', value: 'actions', sortable: false }
+      ]
+    }
   },
   async mounted() {
     try {
-      var response = await this.$axios.$get("ventas/get/ventas");
-      this.ventas = response;
-      response = await this.$axios.$get("ventas/get/estados");
-      this.itemsEstado = response;
-      console.log(response);
+      var response = await this.$axios.$get('ventas/get/ventas')
+      this.ventas = response
+      response = await this.$axios.$get('ventas/get/estados')
+      this.itemsEstado = response
+      console.log(response)
     } catch (e) {
-      console.error("SOMETHING WENT WRONG :" + e);
+      console.error('SOMETHING WENT WRONG :' + e)
     }
   },
   methods: {
@@ -120,28 +120,31 @@ export default {
       return (
         value != null &&
         search != null &&
-        typeof value === "string" &&
-        value.toString().toLocaleUpperCase().indexOf(search) !== -1
-      );
+        typeof value === 'string' &&
+        value
+          .toString()
+          .toLocaleUpperCase()
+          .indexOf(search) !== -1
+      )
     },
     editItem(item) {
-      console.log(item.id);
-      this.dialog = true;
-      this.estado = item.estado;
-      this.idVenta = item.id;
+      console.log(item.id)
+      this.dialog = true
+      this.estado = item.estado
+      this.idVenta = item.id
     },
     close() {
-      this.dialog = false;
+      this.dialog = false
     },
     async save() {
       var response = await this.$axios.$post(
-        "ventas/update/Estado/" + this.idVenta + "/" + this.estado
-      );
-      response = await this.$axios.$get("ventas/get/ventas");
-      console.log(response);
-      this.ventas = response;
-      this.close();
-    },
-  },
-};
+        'ventas/update/Estado/' + this.idVenta + '/' + this.estado
+      )
+      response = await this.$axios.$get('ventas/get/ventas')
+      console.log(response)
+      this.ventas = response
+      this.close()
+    }
+  }
+}
 </script>

@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-//import mapViews from '~/common/rawData'
 
 export default new Vuex.Store({
   state: {

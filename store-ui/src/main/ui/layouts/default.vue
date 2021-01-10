@@ -28,7 +28,7 @@
           dense
           filled
           label="Categorias"
-          @change="gotoChild"
+          @change="changeArticle(autoCompleteLayout)"
         ></v-autocomplete>
       </div>
       <v-tabs v-model="menuTab" background-color="dark" dark grow>
@@ -36,13 +36,13 @@
       </v-tabs>
       <v-tabs-items v-model="menuTab">
         <v-tab-item key="menu">
-          <v-list v-for="category in links" :key="category.id" >
+          <v-list v-for="category in links" :key="category.id">
             <v-list-item :[category.target]="category.url">
               <v-list-item-action>
                 <v-icon>{{ category.icon }}</v-icon>
               </v-list-item-action>
               <v-list-item-content>
-                <v-list-item-title @click="me(category.text)">{{ category.text }}</v-list-item-title>
+                <v-list-item-title>{{ category.text }}</v-list-item-title>
               </v-list-item-content>
             </v-list-item>
           </v-list>
@@ -58,6 +58,21 @@
     </v-app-bar>
     <v-main>
       <v-container fill-height fluid>
+        <notifications group="notifGroup" position="top right">
+          <template slot="body" slot-scope="props">
+            <v-alert
+              dismissible
+              close-icon="mdi-delete"
+              border="left"
+              elevation="2"
+              colored-border
+              :type="props.item.type"
+            >
+              <h1>{{ props.item.title }}</h1>
+              <h2>{{ props.item.text }}</h2>
+            </v-alert>
+          </template>
+        </notifications>
         <nuxt />
       </v-container>
     </v-main>
@@ -83,9 +98,10 @@ export default {
       drawer: false,
       miniVariant: false,
       clipped: false,
-      menuTab:false,
+      menuTab: false,
+      autoCompleteLayout: '',
       titleXs: 'MJ',
-      title: 'MJ markets.pty',
+      title: 'MJ markets.pty'
     }
   },
   computed: {
@@ -99,15 +115,15 @@ export default {
     })
   },
   mounted() {
- this.$axios.setHeader('Authorization', this.token)
- this.$axios.setToken(this.token)
- this.$store.dispatch('app/setShowLoading', true)
+    this.$axios.setHeader('Authorization', this.token)
+    this.$axios.setToken(this.token)
   },
   methods: {
-    async me(text) {
+    async changeArticle(text) {
       try {
+        console.log(text)
         this.$store.dispatch('app/setTypeArticle', text)
-        this.$root.$emit("TypeArticle")
+        this.$root.$emit('TypeArticle')
       } catch (e) {
         console.log(e)
       }
