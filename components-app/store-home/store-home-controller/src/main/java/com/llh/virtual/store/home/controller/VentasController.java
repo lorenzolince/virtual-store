@@ -58,6 +58,6 @@ public class VentasController {
 
     @PostMapping("/update/Estado/{id}/{estado}")
     public int updateEstadoVenta(@PathVariable("id") int id, @PathVariable("estado") VentasDto.Status estado) {
-        return ventasService.updateEstadoVenta(estado.name(), id);
+        return ventasService.updateEstadoVenta(estado, id);
     }
 }

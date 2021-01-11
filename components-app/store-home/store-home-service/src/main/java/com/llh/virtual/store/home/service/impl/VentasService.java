@@ -8,6 +8,7 @@ package com.llh.virtual.store.home.service.impl;
 import com.llh.virtual.store.home.dao.repository.ArticlesRepository;
 import com.llh.virtual.store.home.dao.repository.ProductosRepository;
 import com.llh.virtual.store.home.dao.repository.VentasRepository;
+import com.llh.virtual.store.home.domain.Articles;
 import com.llh.virtual.store.home.domain.Productos;
 import com.llh.virtual.store.home.domain.Ventas;
 import com.llh.virtual.store.home.service.IventasService;
@@ -63,6 +64,12 @@ public class VentasService implements IventasService {
                     return pro;
                 })
                 .collect(Collectors.toList()));
+        venta.getProductos().stream().forEach(p -> {
+            Articles art = p.getArticle();
+            art.setCantidad(art.getCantidad() - p.getCantidad());
+            articlesRepository.save(art);
+        });
+
     }
 
     @Override
@@ -70,19 +77,19 @@ public class VentasService implements IventasService {
         return ventasRepository.findAll()
                 .stream()
                 .map(venta -> new VentasDto()
-                        .setFecha(venta.getFecha())
-                        .setId(venta.getId())
-                        .setNombreComprador(venta.getNombreComprador())
-                        .setCelular(venta.getCelular())
-                        .setDireccion(venta.getDireccion())
-                        .setStatus(VentasDto.Status.valueOf(venta.getStatus().name()))
-                        .setTotal(venta.getTotal())
-                        .setProductos(venta.getProductos()
-                                .stream()
-                                .map(pro -> new ProductosDto()
-                                        .setCantidad(pro.getCantidad())
-                                        .setIdArticles(pro.getArticle().getId()))
-                                .collect(Collectors.toList())))
+                .setFecha(venta.getFecha())
+                .setId(venta.getId())
+                .setNombreComprador(venta.getNombreComprador())
+                .setCelular(venta.getCelular())
+                .setDireccion(venta.getDireccion())
+                .setStatus(VentasDto.Status.valueOf(venta.getStatus().name()))
+                .setTotal(venta.getTotal())
+                .setProductos(venta.getProductos()
+                        .stream()
+                        .map(pro -> new ProductosDto()
+                        .setCantidad(pro.getCantidad())
+                        .setIdArticles(pro.getArticle().getId()))
+                        .collect(Collectors.toList())))
                 .collect(Collectors.toList());
     }
 
@@ -97,8 +104,17 @@ public class VentasService implements IventasService {
     }
 
     @Override
-    public int updateEstadoVenta(String status, int id) {
-        return ventasRepository.updateEstadoVenta(status, id);
+    public int updateEstadoVenta(VentasDto.Status estado, int id) {
+        if (VentasDto.Status.CANCELADO.equals(estado)) {
+            Ventas ventas = ventasRepository.getOne(Long.valueOf(id));
+            ventas.getProductos().stream().forEach(p -> {
+                Articles art = p.getArticle();
+                art.setCantidad(art.getCantidad() + p.getCantidad());
+                articlesRepository.save(art);
+            });
+        }
+        return ventasRepository.updateEstadoVenta(estado.name(), id);
+
     }
 
 }

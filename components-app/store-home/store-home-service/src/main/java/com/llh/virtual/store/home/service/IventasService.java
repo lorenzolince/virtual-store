@@ -23,6 +23,6 @@ public interface IventasService {
 
     public List<Map> getProductosByVenta(int id);
 
-    int updateEstadoVenta(String status, int id);
+    int updateEstadoVenta(VentasDto.Status  status, int id);
 
 }
