@@ -6,12 +6,12 @@
       v-model="drawer"
       :mini-variant="miniVariant"
       :clipped="clipped"
-      width="350"
+      width="500"
       fixed
       app
     >
       <v-img
-        src="/mj/logo.jpg"
+        src="/mj/logo.jpeg"
         aspect-ratio="1"
         max-height="75"
         max-width="200"
@@ -49,11 +49,30 @@
         </v-tab-item>
       </v-tabs-items>
     </v-navigation-drawer>
-    <v-app-bar :clipped-left="clipped" fixed app>
+    <v-app-bar
+      height="100"
+      dark
+      shrink-on-scroll
+      prominent
+      fade-img-on-scroll
+      scroll-target="#scrolling-techniques-3"
+      app
+      color="primary"
+      src="/mj/header.jpeg"
+    >
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
       <v-toolbar-title class="d-flex d-sm-none" v-text="titleXs" />
       <v-toolbar-title class="d-none d-sm-flex" v-text="title" />
       <v-spacer />
+      <v-spacer />
+      <v-spacer />
+      <v-spacer />
+      <v-spacer />
+      <v-row>
+        <v-col cols="2">
+          <carrito />
+        </v-col>
+      </v-row>
       <Login />
     </v-app-bar>
     <v-main>
@@ -76,7 +95,7 @@
         <nuxt />
       </v-container>
     </v-main>
-    <footer class="footer home-footer has-background-black">
+    <!--   <footer class="footer home-footer has-background-black">
       <v-row justify="end">
         <v-col class="text-right pr-2" cols="1">
           <a href="https://www.linkedin.com/in/lorenzo-lince" target="_blank"
@@ -85,14 +104,15 @@
         </v-col>
       </v-row>
     </footer>
-    <!-- end footer -->
+  end footer -->
   </v-app>
 </template>
 <script>
 import { mapState, mapGetters } from 'vuex'
 import Login from '~/components/Login.vue'
+import carrito from '~/components/carrito.vue'
 export default {
-  components: { Login },
+  components: { Login, carrito },
   data() {
     return {
       drawer: false,
@@ -182,163 +202,5 @@ body {
   line-height: 2em;
   padding: 0.5em 2em;
   text-decoration: none;
-}
-</style>
-
-<style lang="scss">
-//border radio for elements
-$border-radio: 8px;
-//Esri bubble custom style
-.esri-view {
-  .esri-ui {
-    /*styling the scroll bar*/
-    /* width */
-    ::-webkit-scrollbar {
-      width: 5px;
-    }
-    /* Track */
-    ::-webkit-scrollbar-track {
-      background: #f1f1f1;
-    }
-    /* Handle */
-    ::-webkit-scrollbar-thumb {
-      background: #888;
-    }
-    /* Handle on hover */
-    ::-webkit-scrollbar-thumb:hover {
-      background: #555;
-    }
-    /*END styling the scroll bar*/
-    .esri-ui-inner-container.esri-ui-manual-container {
-      .esri-popup,
-      .esri-popup--shadow {
-        border-radius: $border-radio;
-        -webkit-border-radius: $border-radio;
-        -moz-border-radius: $border-radio;
-      }
-
-      .esri-ui-inner-container.esri-ui-manual-container:hover,
-      .esri-popup:hover {
-        cursor: pointer;
-      }
-      .esri-popup__header,
-      .esri-popup__footer {
-        // background-color: gainsboro;
-        border-radius: $border-radio;
-        -webkit-border-radius: $border-radio;
-        -moz-border-radius: $border-radio;
-      }
-      .esri-popup__header-title {
-        padding: 0px;
-        font-weight: bolder;
-      }
-      .esri-popup__icon {
-        padding: 0px;
-      }
-      /*add for header size
-      Applys for close button
-      */
-      .esri-popup__button {
-        padding-top: 0px;
-        padding-bottom: 0px;
-        padding-left: 5px;
-        padding-right: 0px;
-      }
-      .esri-popup__pagination-next,
-      .esri-popup__feature-menu-button,
-      .esri-popup__pagination-previous {
-        padding: 0px;
-      }
-
-      /* Avoids the round borders in the pointer */
-      .esri-popup__pointer-direction {
-        border-radius: 0px;
-        -webkit-border-radius: 0px;
-        -moz-border-radius: 0px;
-        background-color: #444444;
-      }
-
-      .esri-popup {
-        .esri-feature__content-element {
-          padding: 0px;
-        }
-        .esri-popup__content {
-          margin-top: 0px;
-          margin-right: 5px;
-          margin-bottom: 11px;
-          margin-left: 5px;
-          background-color: white;
-        }
-      }
-
-      .esri-feature__field-header,
-      .esri-feature__field-data {
-        padding: 0.2em 0em;
-        /*
-    original
-    padding: 0.5em 0.7em;
-    */
-      }
-
-      .esri-popup__main-container {
-        max-width: 280px;
-        border-radius: $border-radio;
-        -webkit-border-radius: $border-radio;
-        -moz-border-radius: $border-radio;
-      }
-    }
-  }
-}
-
-//Esri map Style
-
-.esri-ui-inner-container.esri-ui-corner-container {
-  .esri-ui-corner {
-    .esri-component {
-      box-shadow: none;
-    }
-    .v-input.v-text-field.v-select {
-      border-radius: $border-radio;
-      width: 56%;
-    }
-  }
-
-  .esri-widget {
-    &--button,
-    &.esri-widget,
-    &.esri-widget {
-      border-radius: $border-radio;
-      &.esri-zoom {
-        border-radius: $border-radio;
-      }
-    }
-    .esri-expand__container--expanded {
-      .esri-expand__content {
-        background-color: white;
-        border-radius: $border-radio;
-      }
-    }
-    .esri-layer-list__item.esri-layer-list__item--invisible-at-scale {
-      border-radius: $border-radio;
-    }
-  }
-  .esri-ui-bottom-right {
-    flex-flow: column;
-    .esri-component.esri-widget {
-      &.esri-zoom {
-        border-radius: $border-radio $border-radio 0px 0px;
-      }
-      &.esri-home {
-        border-radius: 0px 0px $border-radio $border-radio;
-      }
-    }
-  }
-}
-
-.theme--dark.v-navigation-drawer {
-  background-color: #1e1e1e;
-}
-#app {
-  font-family: 'Humanist';
 }
 </style>

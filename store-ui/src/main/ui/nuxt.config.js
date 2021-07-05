@@ -24,7 +24,7 @@ export default {
       }
     ],
     link: [
-      { rel: 'icon', type: 'image/x-icon', href: '/mj/logo.jpg' },
+      { rel: 'icon', type: 'image/x-icon', href: '/mj/logo.jpeg' },
       {
         rel: 'stylesheet',
         href: 'https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css'

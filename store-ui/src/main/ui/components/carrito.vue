@@ -1,19 +1,45 @@
 <template>
-  <div class="todo">
-    <h1>Carrito de compra</h1>
-    <div v-for="item in items" :key="item.id" class="car_pro">
-      <div class="imgsd"><img :src="item.url" /></div>
-      <div class="cuerpo">
-        <div class="nomc">{{ item.name }}</div>
-        <br />
-        <div class="cant">x {{ item.qty }}</div>
-      </div>
-      <div class="precio">$ {{ item.qty * item.precio }}</div>
-    </div>
-
-    <div class="total">$ {{ total }}</div>
-    <button class="button is-dark" @click="guardar">guardar</button>
-  </div>
+  <v-dialog v-model="dialog" width="500">
+    <template v-slot:activator="{ on }">
+      <v-badge color="green" :content="totalCantidad ? totalCantidad : '0'">
+        <v-btn id="idCarrito" x-large color="primary" fab dark v-on="on">
+          <v-icon>mdi-cart-outline</v-icon>
+        </v-btn>
+      </v-badge>
+    </template>
+    <template v-slot:default="dialog">
+      <v-toolbar color="primary" dark>
+        <v-btn icon dark @click="dialog.value = false">
+          <v-icon>mdi-close</v-icon>
+        </v-btn>
+        <v-card-text>
+          <div class="text-h4 pa-12">Carrito de compra</div>
+        </v-card-text>
+      </v-toolbar>
+      <v-card class="mx-auto" outlined>
+        <v-list>
+          <v-list-item v-for="item in items" :key="item.id">
+            <v-list-item-avatar tile size="80">
+              <img :src="item.url" />
+            </v-list-item-avatar>
+            <v-list-item-title>{{ item.name }}</v-list-item-title>
+            <v-list-item-title>x {{ item.qty }}</v-list-item-title>
+            <v-list-item-title
+              >$ {{ item.qty * item.precio }}</v-list-item-title
+            >
+          </v-list-item>
+          <v-list-item-title class="text-h5 mb-1">
+            total: $ {{ total }}
+          </v-list-item-title>
+        </v-list>
+        <v-card-actions>
+          <v-btn class="mx-2" dark color="orange" @click="guardar">
+            guardar
+          </v-btn>
+        </v-card-actions>
+      </v-card>
+    </template>
+  </v-dialog>
 </template>
 <script>
 import logica from '~/static/logica'
@@ -44,6 +70,11 @@ export default {
         return it.precio * it.qty
       })
     },
+    totalCantidad() {
+      return _.sumBy(this.items, function(it) {
+        return it.qty
+      })
+    },
     ...mapGetters({
       user: 'app/getUser'
     })
@@ -58,7 +89,7 @@ export default {
     async guardar() {
       if (this.user.username == null) {
         Vue.notify(this.SaveWar)
-        this.$router.push('/login')
+        this.$router.push('/register')
       } else if (this.total > 0) {
         const venta = {
           celular: this.user.celular,
